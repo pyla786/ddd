@@ -1,0 +1,935 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IBW_QA_23rd_Mar2020" Class="SchedulingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=IBW_QA_23rd_Mar2020;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_ibw_timesheet" Member="tbl_ibw_timesheets">
+    <Type Name="tbl_ibw_timesheet">
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="dt_log_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_include_expense" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="tbl_ibw_timesheet_tbl_ibw_expense" Member="tbl_ibw_expenses" ThisKey="int_timesheet_id" OtherKey="int_timesheet_id" Type="tbl_ibw_expense" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_expense" Member="tbl_ibw_expenses">
+    <Type Name="tbl_ibw_expense">
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_log_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bt_reimbursable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_google_file_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dec_rate" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dec_total" Type="System.Decimal" DbType="Decimal(8,2)" CanBeNull="true" />
+      <Association Name="tbl_ibw_expense_tbl_ibw_expense_document" Member="tbl_ibw_expense_documents" ThisKey="int_expense_id" OtherKey="int_expense_id" Type="tbl_ibw_expense_document" />
+      <Association Name="tbl_ibw_timesheet_tbl_ibw_expense" Member="tbl_ibw_timesheet" ThisKey="int_timesheet_id" OtherKey="int_timesheet_id" Type="tbl_ibw_timesheet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_expense_documents" Member="tbl_ibw_expense_documents">
+    <Type Name="tbl_ibw_expense_document">
+      <Column Name="int_expense_document_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_log_hour_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tbl_ibw_expense_tbl_ibw_expense_document" Member="tbl_ibw_expense" ThisKey="int_expense_id" OtherKey="int_expense_id" Type="tbl_ibw_expense" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_get_users_job_code" Method="sp_get_users_job_code">
+    <ElementType Name="sp_get_users_job_codeResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsert_action_due_date" Method="sp_upsert_action_due_date">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_due_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_due_date_option" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_is_remedial" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_team_member_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_upsert_action_due_dateResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_reschedule_action" Method="sp_reschedule_action">
+    <Parameter Name="int_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_sch_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_reschedule_actionResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_scheduled_actions_comments" Method="sp_get_scheduled_actions_comments">
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_scheduled_actions_commentsResult">
+      <Column Name="int_comment_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_comment" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_updated_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_updated_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_updated_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_delete_scheduled_actions_comment" Method="sp_delete_scheduled_actions_comment">
+    <Parameter Name="int_comment_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_delete_scheduled_actions_commentResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsert_scheduled_actions_comment" Method="sp_upsert_scheduled_actions_comment">
+    <Parameter Name="int_comment_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_comment" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_upsert_scheduled_actions_commentResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_deassign_scheduled_action" Method="sp_deassign_scheduled_action">
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_deassign_scheduled_actionResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.deAllocateScheduledAction" Method="deAllocateScheduledAction">
+    <Parameter Name="int_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_get_all_site_names" Method="sp_get_all_site_names">
+    <ElementType Name="sp_get_all_site_namesResult">
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_expense" Method="sp_get_expense">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_expenseResult">
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_log_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quantity" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bt_reimbursable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="vc_google_file_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_expense_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_limit_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_total" Type="System.Decimal" DbType="Decimal(21,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAllQuotes" Method="GetAllQuotes">
+    <ElementType Name="GetAllQuotesResult">
+      <Column Name="QuoteRefNum" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_potential_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_received_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="dt_quoted_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_decision_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_quoted_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="dec_awarded_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_project_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_account_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_prepare_days" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_survey_purpose_detail" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_name" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_path" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_purpose_of_survey_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_lead_source_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_RFQ_saved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_contact_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_contact_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_GDrive_file_id" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="dt_quote_preparation_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_stage_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_legacy_number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.deleteTimeSheetOfUser" Method="deleteTimeSheetOfUser">
+    <Parameter Name="timeSheetId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="isAssigned" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getAllExpensesOfAssignedTimesheet" Method="getAllExpensesOfAssignedTimesheet">
+    <Parameter Name="timesheetId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getAllExpensesOfAssignedTimesheetResult">
+      <Column Name="int_action_log_hours_expense_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_expense_rate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_quanity" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_total_expense_cost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="bt_expense_isReimbursable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_scheduled_action_notifications" Method="sp_get_scheduled_action_notifications">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_scheduled_action_notificationsResult">
+      <Column Name="int_notification_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_scheduled_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_assigned_to" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_assigned_hours" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_status" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_from_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_to_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_read" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="vc_assigned_to" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_from_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_to_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_action_split_users" Method="sp_get_action_split_users">
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_action_split_usersResult">
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_assigned_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_save_scheduled_action_details" Method="sp_save_scheduled_action_details">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_save_scheduled_action_detailsResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_timesheet" Method="sp_get_timesheet">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_timesheetResult">
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="dt_log_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_remarks" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="bt_include_expense" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getTimeSheet" Method="getTimeSheet">
+    <Parameter Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getTimeSheetResult">
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_status" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_completed_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_include_expenses" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateLogHours" Method="updateLogHours">
+    <Parameter Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_status" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dt_completed_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="vc_remarks" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="bt_include_expenses" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetUserActionExpenses" Method="GetUserActionExpenses">
+    <Parameter Name="loggedHoursId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetUserActionExpensesResult">
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="actionDetailId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="timesheetId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="expenseId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SOWName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="taskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="actionName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="jobCodeName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseCode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="limitType" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseRate" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="completionDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isReimbursable" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="pm_message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="googleFileId" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedByName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="totalCost" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_delete_manage_action" Method="sp_delete_manage_action">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_delete_manage_actionResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetUserActionLogHours" Method="GetUserActionLogHours">
+    <Parameter Name="detailsId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetUserActionLogHoursResult">
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_status" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_completed_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_remarks" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_include_expenses" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="actionCompletionStatu" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_all_sow_names" Method="sp_get_all_sow_names">
+    <ElementType Name="sp_get_all_sow_namesResult">
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="budget_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_sow_status_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_status" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsert_timesheet" Method="sp_upsert_timesheet">
+    <Parameter Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_log_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_site_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_sow_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_task_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="vc_remarks" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="bt_include_expense" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_upsert_timesheetResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_timesheet_expenses_notes" Method="sp_get_timesheet_expenses_notes">
+    <Parameter Name="id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_timesheet" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_assigned" Type="System.Boolean" DbType="Bit" />
+    <ElementType Name="sp_get_timesheet_expenses_notesResult">
+      <Column Name="int_note_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_log_hours_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_pm_message" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_actions_for_scheduling" Method="sp_get_actions_for_scheduling">
+    <Parameter Name="int_task_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_actions_for_schedulingResult">
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_job_code_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_due_date_option" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_isRemedial_action" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="int_team_member_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_project_manage_name" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_scheduled_hours" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_unscheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_rescheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_city" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_update_scheduled_actions_sequence" Method="sp_update_scheduled_actions_sequence">
+    <Parameter Name="int_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_sequence" Type="System.Int32" DbType="Int" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_update_scheduled_actions_sequenceResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_pm_expenses" Method="sp_get_pm_expenses">
+    <ElementType Name="sp_get_pm_expensesResult">
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="actionDetailId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="timesheetId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="expenseId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="siteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SOWName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="sowId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="taskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="actionName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="jobCodeName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseCode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="limitType" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseRate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="completionDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isReimbursable" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="pm_message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="googleFileId" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedByName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_notes_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_user_timesheet" Method="sp_get_user_timesheet">
+    <ElementType Name="sp_get_user_timesheetResult">
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="timesheetId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="actionDetailId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="siteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SOWName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="sowId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="taskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="actionName" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="jobCodeName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="plannedHours" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="workedHours" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="remainingHours" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="completionDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="dueDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="completionStatus" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="googleFileId" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedByName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="pm_message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_notes_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_pm_actions" Method="sp_get_pm_actions">
+    <Parameter Name="projectManagerId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_pm_actionsResult">
+      <Column Name="logHoursId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="actionCompletionStatus" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_job_code_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_due_date_option" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_isRemedial_action" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="int_team_member_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_project_manage_name" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="scheduleDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="assignedHours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="assignedTo" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="assignedBy" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="siteStreetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cityName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_scheduled_hours" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_scheduled1" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_unscheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_rescheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_project1" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_user_timesheet_nonaction" Method="sp_get_user_timesheet_nonaction">
+    <Parameter Name="projectManagerId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_user_timesheet_nonactionResult">
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="timesheetId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="actionDetailId" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="siteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SOWName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="sowId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="taskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="actionName" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="plannedHours" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="workedHours" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="remainingHours" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="completionDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="dueDate" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="completionStatus" Type="System.String" DbType="VarChar(9) NOT NULL" CanBeNull="false" />
+      <Column Name="googleFileId" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedByName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="pm_message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_notes_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_pm_expenses_nonaction" Method="sp_get_pm_expenses_nonaction">
+    <Parameter Name="projectManagerId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_pm_expenses_nonactionResult">
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="actionDetailId" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="timesheetId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="expenseId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="siteId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="SOWName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="sowId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="taskName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="actionName" Type="System.String" DbType="VarChar(1) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="jobCodeTitle" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseCode" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="limitType" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="expenseRate" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="Quantity" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="completionDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isReimbursable" Type="System.String" DbType="VarChar(3)" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="pm_message" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="googleFileId" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="userId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="modifiedBy" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedByName" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="modifiedDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="isAssigned" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_notes_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_insert_scheduled_action_activity_log" Method="sp_insert_scheduled_action_activity_log">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_scheduled_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_assigned_to" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="vc_status" Type="System.String" DbType="VarChar(25)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_get_actions_scheduled_to_user" Method="sp_get_actions_scheduled_to_user">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_task_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_actions_scheduled_to_userResult">
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_assigned_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_worked_hours" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_due_date_option" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_timesheet_status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="timesheet_status_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_project_manage_name" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="siteStreetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cityName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="isQuoteDeleted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_actions_history" Method="sp_get_actions_history">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_actions_historyResult">
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_assigned_user" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_assigned_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_scheduled_action_activity_log" Method="sp_get_scheduled_action_activity_log">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_scheduled_action_activity_logResult">
+      <Column Name="int_log_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_scheduled_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_assigned_to" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_status" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_timesheet_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_timesheet_remaining_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_assigned_to" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_all_quotes" Method="sp_get_all_quotes">
+    <ElementType Name="sp_get_all_quotesResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_stage_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.deleteExpenseOfUser" Method="deleteExpenseOfUser">
+    <Parameter Name="expenseId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="isAssigned" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_get_scheduled_actions_details" Method="sp_get_scheduled_actions_details">
+    <Parameter Name="int_action_detail_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_scheduled_actions_detailsResult">
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_project_manage_name" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_rec_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_assigned_user" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="dt_assigned_on_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_assigned_by" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getAllDetailsOfScheduledActions" Method="getAllDetailsOfScheduledActions">
+    <Parameter Name="int_detail_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getAllDetailsOfScheduledActionsResult">
+      <Column Name="int_detail_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_assigned_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sequence" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="bt_isRemedial_action" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dec_actual_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_assigned_for_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_assigned_by_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="action_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="action_actual_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="action_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="action_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_ibw_manage_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_ibw_budget_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="task_actual_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="task_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="task_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="task_actual_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="int_manage_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="sow_google_drive_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="site_google_drive_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_rec_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="action_scheduling_status" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_project_manager_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="int_created_by1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_get_scheduled_actions_details_by_manage_action_id" Method="sp_get_scheduled_actions_details_by_manage_action_id">
+    <Parameter Name="int_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_get_scheduled_actions_details_by_manage_action_idResult">
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_detail_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_project_manage_name" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_assigned_hours" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_schedule_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_assigned_user_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="dt_rec_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_assigned_user" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="dt_assigned_on_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_assigned_by" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_created_by" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsert_expense" Method="sp_upsert_expense">
+    <Parameter Name="int_expense_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dt_log_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_site_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_sow_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_task_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_jobcode_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_expense_code_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_quantity" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dec_rate" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="dec_total" Type="System.Decimal" DbType="Decimal(8,2)" />
+    <Parameter Name="bt_reimbursable" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="vc_description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_file_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="sp_upsert_expenseResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

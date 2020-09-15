@@ -1,0 +1,155 @@
+////////////////////////////////////////////////////////////Update Method///////////////////////////////////////////////////////////////
+
+
+
+        [Route("api/save-rfq")]
+        [HttpPost]
+        public HttpResponseMessage SaveRFQ([FromBody]JObject model)
+        {
+            Response<RFQ> response = new Response<RFQ>();
+            try
+            {
+                long? headerUserId = null;
+                var re = Request;
+                var headers = re.Headers;
+                if (headers.Contains("User"))
+                {
+                    string strUserId = headers.GetValues("User").First();
+                    headerUserId = Convert.ToInt64(strUserId);
+                }
+                string quoteId = model.Value<string>("quoteId");
+                string createdBy = model.Value<string>("createdBy");
+                string currentDateTime = model.Value<string>("currentDateTime");
+                string type = model.Value<string>("type");
+                string details = model.Value<string>("details");
+                long? result = _quotesMethods.SaveRFQ(Convert.ToInt64(quoteId), Convert.ToInt64(createdBy), currentDateTime, type);
+                if (result != 0)
+                {
+
+                    //_quotesMethods.CreateDefaultSiteAndSOW(Convert.ToInt64(quoteId), Convert.ToInt64(createdBy));
+                    string quoteFolderGId = _quotesMethods.SaveFileInGDrive(Convert.ToInt64(quoteId), type);
+                    _quotesMethods.UpdateQuoteGFolderId(Convert.ToInt64(quoteId), quoteFolderGId);
+                    //bool IsDefault = type == "Project" ? false : true;
+                    Sites site = new Sites()
+                    {
+                        siteId = null,
+                        siteName = "Default",
+                        quoteId = Convert.ToInt64(quoteId),
+                        streetAddress = "",
+                        cityName = "",
+                        zipCode = "",
+                        countryId = null,
+                        stateId = null,
+                        muncipalityId = null,
+                        createdBy = Convert.ToInt64(createdBy),
+                        isDefault = true
+                    };
+                    long? siteId = _quotesMethods.upsertSitesForQuotes(site);
+                    Sow sow = new Sow() { sowId = null, sowName = "Default", sowTypeId = null, siteId = siteId, quoteId = Convert.ToInt64(quoteId), createdBy = Convert.ToInt64(createdBy), modifiedBy = Convert.ToInt64(createdBy), isApproved = false, isDefault = true };
+                    long? SOWId = _quotesMethods.upsertSOWForQuotes(sow);
+                    if (SOWId != null)
+                    {
+                        if (_quotesMethods.generateBudgetForQuote(Convert.ToInt64(quoteId), siteId, SOWId, Convert.ToInt64(createdBy), details))
+                        {
+                            response.Status = true;
+                            response.Message = type == "Quote" ? "RFQ saved successfully" : "New project added successfully";
+                        }
+                        else
+                        {
+                            response.Status = false;
+                            response.Message = "Budget Saving Failed.";
+                        }
+                    }
+
+                }
+                else
+                {
+                    response.Status = false;
+                    response.Message = "Failed to save RFQ details.";
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(response));
+            }
+            catch (Exception ex)
+            {
+                response.Status = true;
+                response.Message = ex.Message;
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, JObject.FromObject(response));
+            }
+        }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////Add Methods in Manage Region////////////////////////////////////////////////////////
+
+//author:Sreebharath
+        //date: 19-11-2019
+        //Get Manage Data for SOW
+        [Route("api/get-sites-and-sows-budget")]
+        [HttpGet]
+        public HttpResponseMessage getAllSitesNSowsOfBudget(long? quoteId)
+        {
+            Response<IEnumerable<ActionsCreate>> output = new Response<IEnumerable<ActionsCreate>>();
+            try
+            {
+                var data = _quotesMethods.getAllSiteNSowsOfBudget(quoteId);
+                if (data != null)
+                {
+                    output.Message = "";
+                    output.Data = data;
+                    output.Status = true;
+                }
+                else
+                {
+                    output.Message = "";
+                    output.Status = true;
+                    output.Data = null;
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            catch (Exception ex)
+            {
+                output.Status = false;
+                output.Message = ex.Message;
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            return response;
+        }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+        //author:Sreebharath
+        //date: 24-03-2020
+        //Get Saved Tasks of Budget SOW
+        [Route("api/get-saved-tasks-budget-sow")]
+        [HttpGet]
+        public HttpResponseMessage getSavedTaskBudgetSow(long? budgetSowId)
+        {
+            Response<IEnumerable<TaskBudget>> output = new Response<IEnumerable<TaskBudget>>();
+            try
+            {
+                var data = _quotesMethods.getSavedTasksInBudget(budgetSowId);
+                if (data != null)
+                {
+                    output.Message = "";
+                    output.Data = data;
+                    output.Status = true;
+                }
+                else
+                {
+                    output.Message = "";
+                    output.Status = true;
+                    output.Data = null;
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            catch (Exception ex)
+            {
+                output.Status = false;
+                output.Message = ex.Message;
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            return response;
+        }

@@ -1,0 +1,484 @@
+--Sreebharath    
+--18/11/2019    
+--To get all the saved budget Sites and Sow    
+-- getSavedBudgetInManage 117  
+ALTER PROCEDURE [dbo].[getSavedBudgetInManage]    
+@int_quote_id BIGINT    
+AS                                
+BEGIN                                                      
+ BEGIN TRY                    
+     BEGIN TRANSACTION                             
+   BEGIN                                 
+   SELECT TBSOW.*,TSOW.int_site_id, TSOW.int_quote_id,TSOW.bt_isApproved,   
+   TSOW.vc_sow_name,TSOW.vc_sow_number, TSI.vc_site_name,  
+   (SELECT top 1 vc_kanban_stage_name from tbl_ibw_configure_kanban where int_configure_kanban_id=TSOW.int_sow_status_id) as sowStatus,  
+   TSOW.int_sow_status_id  
+    FROM tbl_ibw_budget_sow TBSOW LEFT JOIN     
+   tbl_ibw_sows TSOW ON     
+   TSOW.int_sow_id = TBSOW.int_sow_id    
+   LEFT JOIN    
+   tbl_ibw_sites TSI ON    
+   TSI.int_site_id = TSOW.int_site_id    
+   WHERE TSOW.int_quote_id = @int_quote_id AND TSOW.bt_delete = 0    
+   END                    
+  COMMIT TRANSACTION                    
+ END TRY                                   
+  BEGIN CATCH    
+  ROLLBACK TRANSACTION                               
+  DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE () )+ '.';                                
+  DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                
+  DECLARE @ErrorState INT=ERROR_STATE();                                
+  RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                
+  END CATCH                                                    
+    END  
+
+
+GO
+
+-- Author: SreeBharath                                
+-- Date: 31-Jan-2020                                  
+-- Description: Insert Actions for Default SOW              
+                  
+ALTER PROCEDURE [dbo].[automateActionForDefaultSOW]        
+@quoteId BIGINT,           
+@sowId BIGINT,        
+@budgetSOWId BIGINT,   
+@manage_notes NVARCHAR(MAX),  
+@created_by BIGINT,    
+@result BIGINT OUTPUT               
+AS                                   
+BEGIN                                                           
+ BEGIN TRY                        
+ BEGIN TRANSACTION           
+     
+  DECLARE @isProject BIT = (SELECT TOP 1 bt_project FROM tbl_ibw_quotes WHERE int_quote_id = @quoteId)    
+      
+  --For All Values    
+  DECLARE @plannedHours DECIMAL(18,2), @decJobCodeRate DECIMAL(18,2), @totalActionPlannedAmount DECIMAL(18,2), @ibw_manage_sow_result BIGINT, @manage_task_id BIGINT,    
+          @action_name NVARCHAR(100), @action_id BIGINT, @due_date DATETIME, @jobCodeId BIGINT, @lookUpId BIGINT    
+              
+  ---For Cursor Variables            
+  DECLARE @int_task_id BIGINT, @vc_task_name NVARCHAR(MAX), @int_task_in_sow_id BIGINT      
+      
+ IF(@isProject = 0)    
+  BEGIN    
+       
+   SET @plannedHours =  cast((SELECT TOP 1 vc_value from tbl_ibw_settings where vc_setting_name = 'Quote Preparation Duration') AS DECIMAL(18,2))        
+         
+   SET @decJobCodeRate =  (SELECT TOP 1 dec_chargeout_rate_per_hr FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Quotes Administrator' and bt_delete = 0)        
+         
+   SET @totalActionPlannedAmount =  @decJobCodeRate * @plannedHours        
+         
+   INSERT INTO tbl_ibw_manage_sow(int_sow_id, dec_actual_hours, dec_actual_amount, dec_planned_hours, dec_planned_amount, bt_isSubmitted, int_created_by, dt_created_date)        
+   VALUES(@sowId, 0, 0,@plannedHours, @totalActionPlannedAmount, 1, @created_by, GETDATE() )        
+         
+   SET @ibw_manage_sow_result = @@IDENTITY        
+           
+   BEGIN        
+    
+         
+    DECLARE insertTasksInBudgetCursor CURSOR FAST_FORWARD READ_ONLY        
+         
+    FOR        
+    SELECT int_task_id, vc_task_name, int_task_in_sow_id FROM tbl_tasks_in_sow_budget WHERE int_ibw_budget_sow_id = @budgetSOWId        
+         
+    OPEN insertTasksInBudgetCursor        
+         
+    FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id        
+         
+    WHILE @@FETCH_STATUS = 0        
+         
+    BEGIN         
+  INSERT INTO tbl_ibw_manage_tasks(int_ibw_manage_sow_id, int_task_id, vc_task_name, dec_planned_hours, dec_planned_amount, dec_actual_hours, dec_actual_amount, int_ibw_budget_task_id)        
+  VALUES(@ibw_manage_sow_result,@int_task_id,@vc_task_name,CASE WHEN @vc_task_name = 'Quote' THEN @plannedHours ELSE 0 END,CASE WHEN @vc_task_name = 'Quote' THEN @totalActionPlannedAmount ELSE 0 END,0,0, @int_task_in_sow_id)        
+  FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id        
+    END        
+         
+    CLOSE insertTasksInBudgetCursor        
+    DEALLOCATE insertTasksInBudgetCursor        
+           
+   END        
+           
+   BEGIN        
+    
+    SET @manage_task_id = (SELECT TOP 1 int_ibw_manage_task_id from tbl_ibw_manage_tasks where int_ibw_manage_sow_id = @ibw_manage_sow_result and vc_task_name = 'Quote')        
+               
+    
+    SET @action_name = (SELECT TOP 1 vc_action_master_name FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Prepare Quotation')        
+            
+    SET @action_id = (SELECT TOP 1 int_action_master_id FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Prepare Quotation')        
+           
+       
+    SET @due_date = (SELECT TOP 1 TQ.dt_quote_preparation_due_date FROM tbl_ibw_quotes TQ WHERE TQ.int_quote_id = (SELECT TOP 1 TSOW.int_quote_id from tbl_ibw_sows TSOW WHERE TSOW.int_sow_id = @sowId))        
+          
+     
+    SET @jobCodeId = (SELECT TOP 1 int_job_code_master_id FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Quotes Administrator' and bt_delete = 0)        
+                
+    SET @lookUpId = (SELECT TOP 1 int_lookup_id FROM tbl_ibw_lookup_options WHERE vc_lookup_name = 'Flex Date - Action must be completed on OR before this specific date' and bt_delete = 0)        
+            
+    INSERT INTO tbl_ibw_manage_actions(int_manage_task_id, int_action_id, int_job_code_id, vc_custom_action_name, dec_job_code_rate,dec_planned_hours, dec_planned_amount,        
+    dt_due_date, int_due_date_lookup_id, vc_notes,dec_actual_hours, dec_actual_amount, dt_created_date )        
+    VALUES(@manage_task_id,@action_id,@jobCodeId, @action_name, @decJobCodeRate,@plannedHours, @totalActionPlannedAmount,        
+    @due_date, @lookUpId,@manage_notes, 0,0,GETDATE() )        
+            
+    SET @result = @@IDENTITY     
+  END     
+ END     
+  ELSE IF(@isProject = 1)     
+   BEGIN    
+         
+    SET @plannedHours =  cast((SELECT TOP 1 vc_value from tbl_ibw_settings where vc_setting_name = 'Project Preparation Duration') AS DECIMAL(18,2))        
+          
+          
+    SET @decJobCodeRate =  (SELECT TOP 1 dec_chargeout_rate_per_hr FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Project Administrator 1' and bt_delete = 0)        
+          
+        
+    SET @totalActionPlannedAmount =  @decJobCodeRate * @plannedHours        
+          
+    INSERT INTO tbl_ibw_manage_sow(int_sow_id, dec_actual_hours, dec_actual_amount, dec_planned_hours, dec_planned_amount, bt_isSubmitted, int_created_by, dt_created_date)        
+    VALUES(@sowId, 0, 0,@plannedHours, @totalActionPlannedAmount, 1, @created_by, GETDATE() )        
+          
+        
+    SET @ibw_manage_sow_result = @@IDENTITY        
+            
+    BEGIN        
+            
+     DECLARE insertTasksInBudgetCursor CURSOR FAST_FORWARD READ_ONLY        
+          
+     FOR        
+     SELECT int_task_id, vc_task_name, int_task_in_sow_id FROM tbl_tasks_in_sow_budget WHERE int_ibw_budget_sow_id = @budgetSOWId        
+          
+     OPEN insertTasksInBudgetCursor        
+          
+     FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id        
+          
+     WHILE @@FETCH_STATUS = 0        
+          
+     BEGIN         
+   INSERT INTO tbl_ibw_manage_tasks(int_ibw_manage_sow_id, int_task_id, vc_task_name, dec_planned_hours, dec_planned_amount, dec_actual_hours, dec_actual_amount, int_ibw_budget_task_id)        
+   VALUES(@ibw_manage_sow_result,@int_task_id,@vc_task_name,CASE WHEN @vc_task_name = 'Research' THEN @plannedHours ELSE 0 END,CASE WHEN @vc_task_name = 'Research' THEN @totalActionPlannedAmount ELSE 0 END,0,0, @int_task_in_sow_id)        
+   FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id        
+     END        
+          
+     CLOSE insertTasksInBudgetCursor        
+     DEALLOCATE insertTasksInBudgetCursor        
+            
+    END        
+            
+    BEGIN        
+     SET @manage_task_id = (SELECT TOP 1 int_ibw_manage_task_id from tbl_ibw_manage_tasks where int_ibw_manage_sow_id = @ibw_manage_sow_result and vc_task_name = 'Research')        
+                
+     SET @action_name = (SELECT TOP 1 vc_action_master_name FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Project Setup')        
+             
+     SET @action_id = (SELECT TOP 1 int_action_master_id FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Project Setup')        
+            
+     SET @due_date = (SELECT TOP 1 TQ.dt_quote_preparation_due_date FROM tbl_ibw_quotes TQ WHERE TQ.int_quote_id = (SELECT TOP 1 TSOW.int_quote_id from tbl_ibw_sows TSOW WHERE TSOW.int_sow_id = @sowId))        
+           
+     SET @jobCodeId = (SELECT TOP 1 int_job_code_master_id FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Project Administrator 1' and bt_delete = 0)        
+             
+     SET @lookUpId = (SELECT TOP 1 int_lookup_id FROM tbl_ibw_lookup_options WHERE vc_lookup_name = 'Flex Date - Action must be completed on OR before this specific date' and bt_delete = 0)        
+             
+     INSERT INTO tbl_ibw_manage_actions(int_manage_task_id, int_action_id, int_job_code_id, vc_custom_action_name, dec_job_code_rate,dec_planned_hours, dec_planned_amount,        
+     dt_due_date, int_due_date_lookup_id,vc_notes, dec_actual_hours, dec_actual_amount, dt_created_date )        
+     VALUES(@manage_task_id,@action_id,@jobCodeId, @action_name, @decJobCodeRate,@plannedHours, @totalActionPlannedAmount,        
+     @due_date, @lookUpId, @manage_notes, 0,0,GETDATE() )        
+             
+     SET @result = @@IDENTITY     
+    END     
+    END    
+    
+ COMMIT TRANSACTION                        
+  END TRY                                       
+  BEGIN CATCH                       
+ ROLLBACK TRANSACTION                                   
+    DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE () )+ '.';                                    
+    DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                    
+    DECLARE @ErrorState INT=ERROR_STATE();                                    
+    RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                    
+  END CATCH                                                             
+END    
+
+
+GO
+
+
+--Author: Anji                    
+--Date: 27th Nov 2019                      
+--Description: To Update QuoteStatusActivity                    
+ALTER PROCEDURE [dbo].[UpdateQuoteStatusActivity]                      
+@activityId bigint,                    
+@quoteId bigint,                    
+@stageId bigint,                    
+@followUpDate varchar(10),                  
+@currentDateTime varchar(30),                    
+@optionId bigint,                    
+@remarks varchar(1000),                    
+@int_user_id bigint,       
+@int_sow_id bigint,  
+@vc_type nvarchar(20),                  
+@result BIGINT OUTPUT                                                 
+AS                                                        
+BEGIN                                                        
+BEGIN TRY                                          
+BEGIN TRANSACTION                      
+  IF(@int_sow_id is null OR @int_sow_id = 0)  
+  BEGIN  
+  -- updating quote status in quotes table  
+  UPDATE tbl_ibw_quotes SET int_stage_id=@stageId where int_quote_id=@quoteId  
+  END                  
+      -- Archiving previous activities                      
+     UPDATE tbl_ibw_quote_status_activitylog set bt_archive=1 where int_quote_id=@quoteId                    
+     -- inserting current activity                    
+     INSERT INTO tbl_ibw_quote_status_activitylog(int_quote_id,int_stage_id,int_quote_status_option_id,                    
+     dt_followup_date,vc_remarks,int_created_by,dt_created_on, int_type_id, int_sow_id)                    
+     VALUES(@quoteId,@stageId,@optionId,@followUpDate,@remarks,@int_user_id,GETDATE(),   
+     CASE(@vc_type) WHEN 'quote' THEN (SELECT TOP 1 int_kanban_type_id FROM tbl_ibw_kanban_types WHERE vc_kanban_type = 'quotes')  
+     WHEN 'sow' THEN (SELECT TOP 1 int_kanban_type_id FROM tbl_ibw_kanban_types WHERE vc_kanban_type = 'sows')  
+      ELSE NULL END, @int_sow_id)          
+                 
+     SET @result = @@IDENTITY                    
+                      
+      IF((select top 1 vc_kanban_stage_name from tbl_ibw_configure_kanban where int_configure_kanban_id = @stageId) = 'Awarded' AND @vc_type = 'quote')              
+      BEGIN              
+    set @stageId = (select top 1 int_configure_kanban_id from tbl_ibw_configure_kanban where vc_kanban_stage_name = 'Active')                     
+     -- updating quote status in quotes table                           
+    UPDATE tbl_ibw_quotes SET int_stage_id=@stageId,bt_project=1, vc_quote_name=REPLACE(vc_quote_number,'R','A'),    
+    vc_quote_number=REPLACE(vc_quote_number,'R','A') where int_quote_id=@quoteId                    
+    -- Archiving previous activities                      
+    UPDATE tbl_ibw_quote_status_activitylog set bt_archive=1 where int_quote_id=@quoteId                    
+    -- inserting current activity                    
+    INSERT INTO tbl_ibw_quote_status_activitylog(int_quote_id,int_stage_id,int_quote_status_option_id,                    
+    dt_followup_date,vc_remarks,int_created_by,dt_created_on, int_type_id, int_sow_id)                    
+    VALUES(@quoteId,@stageId,null,@followUpDate,null,@int_user_id,GETDATE(),  
+     CASE(@vc_type) WHEN 'quote' THEN (SELECT TOP 1 int_kanban_type_id FROM tbl_ibw_kanban_types WHERE vc_kanban_type = 'quotes')  
+     WHEN 'sow' THEN (SELECT TOP 1 int_kanban_type_id FROM tbl_ibw_kanban_types WHERE vc_kanban_type = 'sows')  
+     ELSE NULL END, @int_sow_id)      
+     
+   DECLARE @SOWID BIGINT  = (SELECT TOP 1 int_sow_id FROM tbl_ibw_sows WHERE int_quote_id = @quoteId AND bt_isDefault = 1)  
+     
+   IF EXISTS(SELECT * FROM tbl_ibw_manage_sow WHERE int_sow_id = @SOWID)  
+   BEGIN  
+    DECLARE @MANAGESOWID BIGINT = (SELECT TOP 1 int_manage_sow_id FROM tbl_ibw_manage_sow WHERE int_sow_id = @SOWID)  
+      
+    IF EXISTS (SELECT * FROM tbl_ibw_manage_tasks WHERE int_ibw_manage_sow_id = @MANAGESOWID and vc_task_name = 'Research')  
+    BEGIN  
+     DECLARE @MANAGETASKIDOFQUOTE BIGINT = (SELECT TOP 1 int_ibw_manage_task_id FROM tbl_ibw_manage_tasks WHERE int_ibw_manage_sow_id = @MANAGESOWID and vc_task_name = 'Research')  
+        
+     DECLARE @action_name NVARCHAR(500) = (SELECT TOP 1 vc_action_master_name FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Project Setup')      
+             
+     DECLARE @action_id BIGINT = (SELECT TOP 1 int_action_master_id FROM tbl_ibw_action_master where bt_delete = 0 and bt_status = 1 and vc_action_master_name = 'Project Setup')      
+           
+     DECLARE @due_date DATETIME = (SELECT TOP 1 TQ.dt_quote_preparation_due_date FROM tbl_ibw_quotes TQ WHERE TQ.int_quote_id = (SELECT TOP 1 TSOW.int_quote_id from tbl_ibw_sows TSOW WHERE TSOW.int_sow_id = @sowId))      
+          
+     DECLARE @jobCodeId BIGINT = (SELECT TOP 1 int_job_code_master_id FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Project Administrator 1' and bt_delete = 0)      
+            
+     DECLARE @lookUpId BIGINT = (SELECT TOP 1 int_lookup_id FROM tbl_ibw_lookup_options WHERE vc_lookup_name = 'Flex Date - Action must be completed on OR before this specific date' and bt_delete = 0)      
+             
+     DECLARE @plannedHours DECIMAL(18,2)  =  cast((SELECT TOP 1 vc_value from tbl_ibw_settings where vc_setting_name = 'Project Preparation Duration') AS DECIMAL(18,2))      
+          
+     DECLARE @decJobCodeRate DECIMAL(18,2) =  (SELECT TOP 1 dec_chargeout_rate_per_hr FROM tbl_ibw_job_code_master WHERE vc_job_title = 'Project Administrator 1' and bt_delete = 0)      
+          
+     DECLARE @totalActionPlannedAmount DECIMAL(18,2) =  @decJobCodeRate * @plannedHours      
+        
+      INSERT INTO tbl_ibw_manage_actions(int_manage_task_id, int_action_id, int_job_code_id, vc_custom_action_name, dec_job_code_rate,dec_planned_hours, dec_planned_amount,      
+      dt_due_date, int_due_date_lookup_id, vc_notes,dec_actual_hours, dec_actual_amount, dt_created_date )      
+      VALUES(@MANAGETASKIDOFQUOTE,@action_id,@jobCodeId, @action_name, @decJobCodeRate,@plannedHours, @totalActionPlannedAmount,      
+      @due_date, @lookUpId,@remarks, 0,0,GETDATE())    
+       
+        
+      UPDATE tbl_ibw_manage_tasks  
+      SET dec_planned_hours = (SELECT SUM(dec_planned_hours) FROM tbl_ibw_manage_actions WHERE int_manage_task_id = @MANAGETASKIDOFQUOTE),  
+      dec_planned_amount =  (SELECT SUM(dec_planned_amount) FROM tbl_ibw_manage_actions WHERE int_manage_task_id = @MANAGETASKIDOFQUOTE)  
+      WHERE int_ibw_manage_task_id = @MANAGETASKIDOFQUOTE  
+        
+      UPDATE tbl_ibw_manage_sow  
+      SET  dec_planned_hours = (SELECT SUM(dec_planned_hours) FROM tbl_ibw_manage_tasks WHERE int_ibw_manage_sow_id = @MANAGESOWID),  
+      dec_planned_amount = (SELECT SUM(dec_planned_amount) FROM tbl_ibw_manage_tasks WHERE int_ibw_manage_sow_id = @MANAGESOWID)  
+      WHERE int_manage_sow_id = @MANAGESOWID  
+    END  
+   END  
+     
+    SET @result = @@IDENTITY                 
+      END                    
+                         
+COMMIT TRANSACTION                                                       
+END TRY                                                        
+BEGIN CATCH                                  
+ROLLBACK TRANSACTION                                              
+DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE() )+ '.';                                                        
+DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                                        
+DECLARE @ErrorState INT=ERROR_STATE();                                                        
+RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                                        
+END CATCH                    
+END  
+
+
+GO
+
+
+--Author: Sreebharath        
+--Date: 25-02-2020     
+--Description: To get all the saved sites and sow in Budget of a Quote    
+CREATE PROCEDURE getAllSavedSitesNSowInBudget
+@int_quote_id BIGINT    
+AS       
+BEGIN                                          
+BEGIN TRY                            
+BEGIN TRANSACTION                    
+     BEGIN        
+
+  SELECT TS.int_quote_id,TS.int_site_id, TS.vc_site_name, TSOW.int_sow_id, TSOW.vc_sow_name, TSOW.vc_sow_number, TBS.int_budget_sow_id,TMS.int_manage_sow_id FROM tbl_ibw_budget_sow TBS    
+  LEFT JOIN tbl_ibw_sows TSOW ON TSOW.int_sow_id = TBS.int_sow_id    
+  LEFT JOIN tbl_ibw_sites TS ON TSOW.int_site_id = TS.int_site_id   
+  LEFT JOIN tbl_ibw_manage_sow TMS ON TMS.int_sow_id = TSOW.int_sow_id
+  WHERE TS.int_quote_id = @int_quote_id and TS.bt_delete = 0 and TSOW.bt_delete = 0    
+
+     END        
+COMMIT TRANSACTION                                         
+END TRY                                          
+BEGIN CATCH                    
+ROLLBACK TRANSACTION                                
+DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE() )+ '.';                                          
+DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                          
+DECLARE @ErrorState INT=ERROR_STATE();                                          
+RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                          
+END CATCH                                          
+END  
+
+
+GO
+
+
+--Author: Sreebharath                   
+--Date: 24/03/2020                   
+--Description: To get task details in Budget SOW          
+              
+CREATE PROCEDURE [dbo].[getSavedTasksInBudget]        
+@int_budget_sow_id BIGINT                                     
+ AS                                                      
+ BEGIN                                                      
+ BEGIN TRY                                        
+ BEGIN TRANSACTION                      
+  BEGIN          
+
+   SELECT TBT.*, TMT.int_ibw_manage_task_id from tbl_tasks_in_sow_budget TBT LEFT JOIN tbl_ibw_manage_tasks TMT on       
+   TBT.int_task_in_sow_id =TMT.int_ibw_budget_task_id  WHERE TBT.int_ibw_budget_sow_id = @int_budget_sow_id 
+  END                  
+COMMIT TRANSACTION                                                     
+END TRY                                                      
+BEGIN CATCH                                
+ROLLBACK TRANSACTION                                            
+DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE() )+ '.';                                                      
+DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                                      
+DECLARE @ErrorState INT=ERROR_STATE();                                                      
+RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                                      
+END CATCH                                                      
+END  
+
+
+GO
+
+
+-- Author: SreeBharath                                  
+-- Date: 25-March-2020                                    
+-- Description: To Create New Manage and add new action and task                
+                    
+CREATE PROCEDURE saveManageTaskAndAction          
+@quoteId BIGINT,             
+@sowId BIGINT,          
+@budgetSOWId BIGINT,
+@budgetTaskId BIGINT,      
+@int_action_id BIGINT,            
+@vc_custom_action_name NVARCHAR(200), 
+@int_job_code_id BIGINT,            
+@vc_job_code_title NVARCHAR(500),            
+@dec_job_code_rate DECIMAL(18,2),            
+@dec_planned_hours  DECIMAL(18,2),       
+@dec_planned_amount DECIMAL(18,2),            
+@dt_due_date DATETIME,            
+@int_due_date_lookup_id BIGINT,                   
+@vc_notes NVARCHAR(MAX),            
+@vc_google_drive_file_id NVARCHAR(MAX),       
+@vc_google_drive_folder_id NVARCHAR(MAX),       
+@bt_isRemedial BIT,           
+@int_team_member_id BIGINT,     
+@created_by BIGINT,      
+@result BIGINT OUTPUT                 
+AS                                     
+BEGIN                                                             
+ BEGIN TRY                          
+ BEGIN TRANSACTION             
+       
+   
+        
+  --For All Values      
+  DECLARE @ibw_manage_sow_result BIGINT, @manage_task_id_result BIGINT
+                
+  ---For Cursor Variables              
+  DECLARE @int_task_id BIGINT, @vc_task_name NVARCHAR(MAX), @int_task_in_sow_id BIGINT        
+    
+  BEGIN      
+               
+           
+   INSERT INTO tbl_ibw_manage_sow(int_sow_id, dec_actual_hours, dec_actual_amount, dec_planned_hours, dec_planned_amount, bt_isSubmitted, int_created_by, dt_created_date)          
+   VALUES(@sowId, 0, 0,@dec_planned_hours, @dec_planned_amount, 1, @created_by, GETDATE() )          
+           
+   SET @ibw_manage_sow_result = @@IDENTITY          
+             
+   BEGIN          
+      
+           
+    DECLARE insertTasksInBudgetCursor CURSOR FAST_FORWARD READ_ONLY          
+           
+    FOR          
+    SELECT int_task_id, vc_task_name, int_task_in_sow_id FROM tbl_tasks_in_sow_budget WHERE int_ibw_budget_sow_id = @budgetSOWId          
+           
+    OPEN insertTasksInBudgetCursor          
+           
+    FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id          
+           
+    WHILE @@FETCH_STATUS = 0          
+           
+    BEGIN           
+	IF @int_task_in_sow_id = @budgetTaskId
+	BEGIN
+     INSERT INTO tbl_ibw_manage_tasks(int_ibw_manage_sow_id, int_task_id, vc_task_name, dec_planned_hours, dec_planned_amount, dec_actual_hours, dec_actual_amount, int_ibw_budget_task_id)          
+     VALUES(@ibw_manage_sow_result,@int_task_id,@vc_task_name,@dec_planned_hours,@dec_planned_amount,0,0, @int_task_in_sow_id)          
+ 	  SET @manage_task_id_result = @@IDENTITY
+	END
+	ELSE
+	BEGIN
+	INSERT INTO tbl_ibw_manage_tasks(int_ibw_manage_sow_id, int_task_id, vc_task_name, dec_planned_hours, dec_planned_amount, dec_actual_hours, dec_actual_amount, int_ibw_budget_task_id)          
+     VALUES(@ibw_manage_sow_result,@int_task_id,@vc_task_name,0,0,0,0, @int_task_in_sow_id)  
+	END
+   FETCH NEXT FROM insertTasksInBudgetCursor INTO @int_task_id, @vc_task_name, @int_task_in_sow_id          
+    END          
+    CLOSE insertTasksInBudgetCursor          
+    DEALLOCATE insertTasksInBudgetCursor          
+             
+   END          
+             
+   BEGIN          
+
+          
+    INSERT INTO tbl_ibw_manage_actions(int_manage_task_id, int_action_id, int_job_code_id, vc_custom_action_name, dec_job_code_rate,dec_planned_hours, dec_planned_amount,          
+    dt_due_date, int_due_date_lookup_id, vc_notes,dec_actual_hours, dec_actual_amount, dt_created_date )          
+    VALUES(@manage_task_id_result,@int_action_id,@int_job_code_id, @vc_custom_action_name, @dec_job_code_rate,@dec_planned_hours, @dec_planned_amount,          
+    @dt_due_date, @int_due_date_lookup_id,@vc_notes, 0,0,GETDATE() )          
+              
+    SET @result = @@IDENTITY       
+  END       
+ END       
+
+ COMMIT TRANSACTION                          
+  END TRY                                         
+  BEGIN CATCH                         
+ ROLLBACK TRANSACTION                                     
+    DECLARE @ErrorMessage NVARCHAR(4000)=ERROR_MESSAGE()+' Please verify "'+ERROR_PROCEDURE()+'" stored procedure at the line number '+CONVERT(NVARCHAR(20),ERROR_LINE () )+ '.';                                      
+    DECLARE @ErrorSeverity INT = ERROR_SEVERITY();                                      
+    DECLARE @ErrorState INT=ERROR_STATE();                                      
+    RAISERROR (@ErrorMessage,@ErrorSeverity,@ErrorState)                                      
+  END CATCH                                                               
+END 
+
+ 

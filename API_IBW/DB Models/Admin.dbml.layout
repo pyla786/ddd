@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Admin">
+  <DataContextMoniker Name="/AdminDataContext" />
+  <nestedChildShapes>
+    <classShape Id="405ab3f4-9844-48c0-a3be-91f386725033" isExpanded="false" absoluteBounds="1, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_employee_type" />
+      <nestedChildShapes>
+        <elementListCompartment Id="be26f140-8091-4fdb-a10d-26b670c24efb" absoluteBounds="1.0150000000000001, 0.96, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="4ceeb024-9983-4d64-882a-0ce85e82fc7d" isExpanded="false" absoluteBounds="6.75, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_user_job" />
+      <nestedChildShapes>
+        <elementListCompartment Id="66429d6f-f826-461f-99ae-67592e128dea" absoluteBounds="6.765, 0.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3cc9afb5-1d35-4b45-8beb-3d59f9fa77b2" isExpanded="false" absoluteBounds="3.625, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_user_role" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e29e959d-3d2b-4935-bff6-ea92f705d0de" absoluteBounds="3.64, 1.71, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a098e6a9-c141-4815-bf5b-50ae61ae137e" isExpanded="false" absoluteBounds="1.125, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_role_master" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7b6c72b9-44da-4062-ae6c-02f6203c3583" absoluteBounds="1.1399999999999997, 1.71, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.125 : 1.475); (3.625 : 1.475)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_role_master/tbl_ibw_role_master_tbl_ibw_user_role" />
+      <nodes>
+        <classShapeMoniker Id="a098e6a9-c141-4815-bf5b-50ae61ae137e" />
+        <classShapeMoniker Id="3cc9afb5-1d35-4b45-8beb-3d59f9fa77b2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="1cb9ff39-c58a-4213-9784-fa62697a66f7" isExpanded="false" absoluteBounds="1.125, 1.875, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_screen_master" />
+      <nestedChildShapes>
+        <elementListCompartment Id="298d2a71-2f1f-4808-8484-18ebf3609899" absoluteBounds="1.1399999999999997, 2.335, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="29eaee75-b091-44bc-a9ed-a603cee587d6" isExpanded="false" absoluteBounds="3.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_user" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9862f477-7ddc-4084-84cb-eb70f327e891" absoluteBounds="3.5149999999999997, 0.96, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 0.725); (6.75 : 0.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_job" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="4ceeb024-9983-4d64-882a-0ce85e82fc7d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 0.55); (6.75 : 0.55)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_job1" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="4ceeb024-9983-4d64-882a-0ce85e82fc7d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 0.9); (6.75 : 0.9)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_job2" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="4ceeb024-9983-4d64-882a-0ce85e82fc7d" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5625 : 0.95); (4.5625 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_role" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="3cc9afb5-1d35-4b45-8beb-3d59f9fa77b2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.09375 : 0.95); (5.09375 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_role1" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="3cc9afb5-1d35-4b45-8beb-3d59f9fa77b2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.03125 : 0.95); (4.03125 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_role2" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="3cc9afb5-1d35-4b45-8beb-3d59f9fa77b2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.968748 : 0.95); (3.968748 : 1.1875); (3.5625 : 1.1875); (3.5625 : 2.1); (3.125 : 2.1)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_screen_master" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="1cb9ff39-c58a-4213-9784-fa62697a66f7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.367187 : 0.95); (4.367187 : 1.125); (4.11458333333333 : 1.125 : JumpStart); (3.94791666666667 : 1.125 : JumpEnd); (3.5625 : 1.125); (3.5625 : 1.956248); (3.125 : 1.956248)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_screen_master1" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="1cb9ff39-c58a-4213-9784-fa62697a66f7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3 : 0.725); (3.5 : 0.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_employee_type/tbl_ibw_employee_type_tbl_ibw_user" />
+      <nodes>
+        <classShapeMoniker Id="405ab3f4-9844-48c0-a3be-91f386725033" />
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.18419230769231 : 0.5); (4.18419230769231 : 0.25); (4.83084615384615 : 0.25); (4.83084615384615 : 0.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="490dffa0-7ef0-41a0-a368-5ea9c228ebdf" isExpanded="false" absoluteBounds="3.625, 1.875, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_user_fcm_key" />
+      <nestedChildShapes>
+        <elementListCompartment Id="49e50684-b305-43be-af7d-281cfaf98a18" absoluteBounds="3.6399999999999997, 2.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.765626 : 0.95); (4.765626 : 1.0625); (3.5625 : 1.0625); (3.5625 : 2.2124995); (3.625 : 2.2124995)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_user_fcm_key" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="490dffa0-7ef0-41a0-a368-5ea9c228ebdf" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6910251e-6252-472e-b555-d8a55d163fe2" isExpanded="false" absoluteBounds="6, 1.875, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_alert" />
+      <nestedChildShapes>
+        <elementListCompartment Id="95cde2a9-eebe-418f-9710-cf6794786660" absoluteBounds="6.015, 2.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 0.8687475); (6.4375 : 0.8687475); (6.4375 : 1.78125); (7 : 1.78125); (7 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_user/tbl_ibw_user_tbl_ibw_alert" />
+      <nodes>
+        <classShapeMoniker Id="29eaee75-b091-44bc-a9ed-a603cee587d6" />
+        <classShapeMoniker Id="6910251e-6252-472e-b555-d8a55d163fe2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="f651e5b0-e480-421a-a411-ce1d52e465d6" isExpanded="false" absoluteBounds="6.5, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/AdminDataContext/tbl_ibw_job_code_master" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1cec731d-b124-41ed-9409-4e856c01ce82" absoluteBounds="6.515, 1.585, 1.9700000000000002, 2.5570068359375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(7.625 : 1.125); (7.625 : 0.95)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/AdminDataContext/tbl_ibw_job_code_master/tbl_ibw_job_code_master_tbl_ibw_user_job" />
+      <nodes>
+        <classShapeMoniker Id="f651e5b0-e480-421a-a411-ce1d52e465d6" />
+        <classShapeMoniker Id="4ceeb024-9983-4d64-882a-0ce85e82fc7d" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

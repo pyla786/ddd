@@ -1,0 +1,20 @@
+///////////////////////////////////////////////////Update Stored Procedures////////////////////////////////////////////////////////
+
+
+=========================>automateActionForDefaultSOW
+
+=========================>getSavedBudgetInManage
+
+
+
+
+
+
+
+//////////////////////////////////////////////////Insert New Store Procedures/////////////////////////////////////////////////////////
+
+============================>getSavedTasksInBudget
+
+============================>getAllSavedSitesNSowInBudget
+
+============================>saveManageTaskAndAction

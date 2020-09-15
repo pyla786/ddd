@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IBW_QA_23rd_Mar2020" Class="InvoicesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=IBW_QA_23rd_Mar2020;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="IBW_QA_23rd_Mar2020ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_ibw_invoice_terms_and_conditions" Member="tbl_ibw_invoice_terms_and_conditions">
+    <Type Name="tbl_ibw_invoice_terms_and_condition">
+      <Column Name="vc_terms_and_conditions" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="int_last_modified_by" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="dt_last_modified_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Function Name="dbo.getcontactdetailsbyclientid" Method="getcontactdetailsbyclientid">
+    <Parameter Name="int_client_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getcontactdetailsbyclientidResult">
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_phone_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.generatelatestinvoicenumberbyquoteid" Method="generatelatestinvoicenumberbyquoteid">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="generatelatestinvoicenumberbyquoteidResult">
+      <Column Name="vc_invoice_number" Type="System.String" DbType="VarChar(22)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getinvoiceclientdetailsbyclientid" Method="getinvoiceclientdetailsbyclientid">
+    <Parameter Name="int_client_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoiceclientdetailsbyclientidResult">
+      <Column Name="vc_client_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_phone_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_Country_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_State_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_city" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_zip_or_postal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vc_site_street_address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateinvoicegoogledrivedetails" Method="updateinvoicegoogledrivedetails">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_google_drive_file_id" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="vc_invoice_access_link" Type="System.String" DbType="VarChar(MAX)" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getinvoicepaymentdetails" Method="getinvoicepaymentdetails">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoicepaymentdetailsResult">
+      <Column Name="int_payment_type_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="payment_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_amount" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_comments" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_invoice_payment_details_attachment_access_link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updateinvoicepaymentdetails" Method="updateinvoicepaymentdetails">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_invoice_payment_type_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_amount" Type="System.Decimal" DbType="Decimal(15,2)" />
+    <Parameter Name="vc_comments" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.updateinvoicepaymentdetailsattachmentinfo" Method="updateinvoicepaymentdetailsattachmentinfo">
+    <Parameter Name="int_invoice_payment_details_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_google_drive_file_id" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="vc_invoice_payment_details_attachment_access_link" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getquoterelatedinvoicedetails" Method="getquoterelatedinvoicedetails">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getquoterelatedinvoicedetailsResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_manage_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_invoice_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_fee_structure" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_budget_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_expense_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="total" Type="System.Decimal" DbType="Decimal(37,4)" CanBeNull="true" />
+      <Column Name="expenses" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="budget_total" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="quoted_total" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="dt_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="invoiced_percent" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_remaining_unbilled" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_billed" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="int_invoice_item_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.checkinvoicenumberuniqueness" Method="checkinvoicenumberuniqueness">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_invoice_number" Type="System.String" DbType="VarChar(35)" />
+    <Parameter Name="vc_manual_invoice_number" Type="System.String" DbType="VarChar(35)" />
+    <ElementType Name="checkinvoicenumberuniquenessResult">
+      <Column Name="message" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getinvoicefileids" Method="getinvoicefileids">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoicefileidsResult">
+      <Column Name="vc_file_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.updatesentinvoicedetails" Method="updatesentinvoicedetails">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_sent_by" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vc_sent_to" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getinvoiceitemdetails" Method="getinvoiceitemdetails">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoiceitemdetailsResult">
+      <Column Name="int_invoice_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_invoice_access_link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dec_HST_percent" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_invoice_item_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_invoice_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="vc_manual_invoice_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="dec_invoice_total" Type="System.Decimal" DbType="Decimal(15,2)" CanBeNull="true" />
+      <Column Name="vc_sent_by" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_sent_to" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dt_sent_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_invoice_status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_balance_amount" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="dt_invoice_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_days_old" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dec_invoiced_percent" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_invoiced_total" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_invoiced_percent1" Type="System.Decimal" DbType="Decimal(5,2) NOT NULL" CanBeNull="false" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_manage_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_invoice_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_fee_structure" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="int_action_log_hour_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_timesheet_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_budget_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_expense_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_worked_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="total" Type="System.Decimal" DbType="Decimal(37,4)" CanBeNull="true" />
+      <Column Name="expenses" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="quoted_total" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getinvoicefeedetails" Method="getinvoicefeedetails">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoicefeedetailsResult">
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_fee_structure" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_invoice_total" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="dec_HST_percent" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="vc_invoice_number" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_purchase_order_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="vc_manual_invoice_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="dec_invoiced_total" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="dec_balance_amount" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getinvoicedetailsbyinvoiceid" Method="getinvoicedetailsbyinvoiceid">
+    <Parameter Name="int_invoice_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getinvoicedetailsbyinvoiceidResult">
+      <Column Name="vc_invoice_number" Type="System.String" DbType="VarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_manual_invoice_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="vc_purchase_order_number" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_invoice_access_link" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="dec_HST_percent" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="vc_invoice_status" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_invoice_total" Type="System.Decimal" DbType="Decimal(15,2) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_balance_amount" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="contact_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="client_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="created_by" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_send_to_email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_project_manager_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_financial_email" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="int_created_by_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="projectNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

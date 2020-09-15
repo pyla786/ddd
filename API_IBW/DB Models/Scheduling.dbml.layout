@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Scheduling">
+  <DataContextMoniker Name="/SchedulingDataContext" />
+  <nestedChildShapes>
+    <classShape Id="bb59c364-e42c-4fd1-9e87-02db0a1ba6c8" isExpanded="false" absoluteBounds="1.25, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/SchedulingDataContext/tbl_ibw_timesheet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="153557ff-a144-42bd-aab6-fd0074af7302" absoluteBounds="1.2649999999999997, 0.96, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="46bf4b50-f2fb-48c8-b585-602e099853ea" isExpanded="false" absoluteBounds="3.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/SchedulingDataContext/tbl_ibw_expense" />
+      <nestedChildShapes>
+        <elementListCompartment Id="81be8660-433e-429a-b1d1-62cd1a8e4d0d" absoluteBounds="3.5149999999999997, 0.96, 1.9700000000000002, 4.2877197265625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.25 : 0.725); (3.5 : 0.725)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SchedulingDataContext/tbl_ibw_timesheet/tbl_ibw_timesheet_tbl_ibw_expense" />
+      <nodes>
+        <classShapeMoniker Id="bb59c364-e42c-4fd1-9e87-02db0a1ba6c8" />
+        <classShapeMoniker Id="46bf4b50-f2fb-48c8-b585-602e099853ea" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="d0286065-a149-40b0-b9aa-73c2065fbaec" isExpanded="false" absoluteBounds="3.5, 1.25, 2, 0.45">
+      <DataClassMoniker Name="/SchedulingDataContext/tbl_ibw_expense_document" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a314eadd-4bcd-44c0-a884-31b87ed267b0" absoluteBounds="3.5149999999999997, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5 : 0.95); (4.5 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SchedulingDataContext/tbl_ibw_expense/tbl_ibw_expense_tbl_ibw_expense_document" />
+      <nodes>
+        <classShapeMoniker Id="46bf4b50-f2fb-48c8-b585-602e099853ea" />
+        <classShapeMoniker Id="d0286065-a149-40b0-b9aa-73c2065fbaec" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

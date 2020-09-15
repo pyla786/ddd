@@ -1,0 +1,14 @@
+/////////////////////////////////////Add Property in ActionCreate Class////////////////////////////////////
+
+
+=======================>  public long? budgetSowId { get; set; }
+
+/////////////////////////////////////Add Property in Budget Class/////////////////////////////////
+
+	       [AllowHtml]
+ =============>public string manageNotes { get; set; }
+
+///////////////////////////////////Add property in TaskBudget Class////////////////////////////////////
+
+
+===================>public long? taskManageId { get; set; }

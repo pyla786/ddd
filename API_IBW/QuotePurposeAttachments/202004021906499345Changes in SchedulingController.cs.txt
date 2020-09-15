@@ -1,0 +1,67 @@
+///////////////////////////////////////////////////////////Update Methods///////////////////////////////////////////////////////
+
+
+   //Author        : Siddhant Chawade
+        //Date          : 21st Dec 2019
+        //Description   : To save timesheet and expenses
+        [Route("api/save-timesheet-expenses")]
+        [HttpPost]
+        public HttpResponseMessage SaveTimesheetExpenses()
+        {
+            Response<Timesheet> output = new Response<Timesheet>();
+            try
+            {
+                long? headerUserId = null;
+                var re = Request;
+                var headers = re.Headers;
+                if (headers.Contains("User"))
+                {
+                    string strUserId = headers.GetValues("User").First();
+                    headerUserId = Convert.ToInt64(strUserId);
+                }
+                var httprequest = HttpContext.Current.Request;
+                //  System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
+                var data = JObject.Parse(httprequest.Form["timesheetExpensesObject"]).ToObject<Timesheet>();
+                if (httprequest.Files.Count > 0)
+                {
+                    for (var i = 0; i < httprequest.Files.Count; i++)
+                    {
+                        string indexNumber = httprequest.Files.Keys[i];
+
+                        // actionItem.googleDriveFile = httprequest.Files[i];
+                       
+                        //Expenses actionDetailsModel = JsonConvert.DeserializeObject<Expenses>(HttpUtility.UrlDecode(httprequest.Files.Keys[i]));
+                        data.ExpensesList[Int32.Parse(indexNumber)].googleDriveFile = httprequest.Files[indexNumber];
+                    }
+                }
+                if (data != null)
+                {
+                    data.UserId = headerUserId;
+                    if (_schMethods.SaveTimesheetExpenses(data) > 0)
+                    {
+                        output.Message = "Saved successfully";
+                        output.Status = true;
+                    }
+                    else
+                    {
+                        output.Message = "Something went wrong";
+                        output.Status = false;
+                    }
+                }
+                else
+                {
+                    output.Message = "Invalid data";
+                    output.Status = false;
+                }
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            catch (Exception ex)
+            {
+                output.Status = false;
+                output.Message = ex.Message;
+                response = Request.CreateResponse(HttpStatusCode.OK, JObject.FromObject(output));
+            }
+            return response;
+        }
+
+

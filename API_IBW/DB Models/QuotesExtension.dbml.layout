@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="QuotesExtension">
+  <DataContextMoniker Name="/QuotesExtensionDataContext" />
+  <nestedChildShapes>
+    <classShape Id="60f2ded7-5686-4b9d-b20b-499fd46921f5" isExpanded="false" absoluteBounds="2.875, 0.625, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_ibw_quote" />
+      <nestedChildShapes>
+        <elementListCompartment Id="81d71ffd-43ac-4440-9c42-487e258d5f89" absoluteBounds="2.8900000000000006, 1.085, 1.9700000000000002, 7.941446940104167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8d22f305-d5ee-46f1-8d8e-7b3424ff50bc" isExpanded="false" absoluteBounds="5.25, 0.75, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_ibw_site" />
+      <nestedChildShapes>
+        <elementListCompartment Id="964f4f91-1a14-4104-9863-acfa84c41b8c" absoluteBounds="5.2650000000000006, 1.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 0.9125); (5.25 : 0.9125)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuotesExtensionDataContext/tbl_ibw_quote/tbl_ibw_quote_tbl_ibw_site" />
+      <nodes>
+        <classShapeMoniker Id="60f2ded7-5686-4b9d-b20b-499fd46921f5" />
+        <classShapeMoniker Id="8d22f305-d5ee-46f1-8d8e-7b3424ff50bc" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="6f69e1ae-acb4-47fd-a364-5b41dbb54db0" isExpanded="false" absoluteBounds="7.5, 0.75, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_ibw_sow" />
+      <nestedChildShapes>
+        <elementListCompartment Id="48fbb459-acdf-4af8-8a2e-1902d4e45ed0" absoluteBounds="7.5150000000000006, 1.21, 1.9700000000000002, 3.3262125651041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.875 : 0.625); (5.25 : 0.25); (5.25 : 0.375); (7.125 : 0.375); (7.5 : 0.75)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuotesExtensionDataContext/tbl_ibw_quote/tbl_ibw_quote_tbl_ibw_sow" />
+      <nodes>
+        <classShapeMoniker Id="60f2ded7-5686-4b9d-b20b-499fd46921f5" />
+        <classShapeMoniker Id="6f69e1ae-acb4-47fd-a364-5b41dbb54db0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.25 : 1.0062525); (7.5 : 1.0062525)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuotesExtensionDataContext/tbl_ibw_site/tbl_ibw_site_tbl_ibw_sow" />
+      <nodes>
+        <classShapeMoniker Id="8d22f305-d5ee-46f1-8d8e-7b3424ff50bc" />
+        <classShapeMoniker Id="6f69e1ae-acb4-47fd-a364-5b41dbb54db0" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="cbaceee8-1079-4354-95b9-3594dc064575" isExpanded="false" absoluteBounds="3, 1.5, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_ibw_manage_action" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8319320f-c500-42f6-be26-df49616d1e71" absoluteBounds="3.0150000000000006, 1.96, 1.9700000000000002, 5.0569254557291661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b86a00d-f4b6-484c-a6a3-a2a351b80fea" isExpanded="false" absoluteBounds="5.375, 1.625, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_tasks_in_sow_budget" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c70241ba-ebe3-474d-ae5b-6c84a5122d45" absoluteBounds="5.3900000000000006, 2.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b2c77960-5bb0-46c4-8f16-77e6e101783e" isExpanded="false" absoluteBounds="7.75, 1.625, 2, 0.45">
+      <DataClassMoniker Name="/QuotesExtensionDataContext/tbl_ibw_manage_actions_file" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3fd1b398-36a0-4e03-9ccf-16a9bc5f09ef" absoluteBounds="7.7650000000000006, 2.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5 : 1.725); (5.3125 : 1.725); (5.3125 : 1.5625); (8.75 : 1.5625); (8.75 : 1.625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/QuotesExtensionDataContext/tbl_ibw_manage_action/tbl_ibw_manage_action_tbl_ibw_manage_actions_file" />
+      <nodes>
+        <classShapeMoniker Id="cbaceee8-1079-4354-95b9-3594dc064575" />
+        <classShapeMoniker Id="b2c77960-5bb0-46c4-8f16-77e6e101783e" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

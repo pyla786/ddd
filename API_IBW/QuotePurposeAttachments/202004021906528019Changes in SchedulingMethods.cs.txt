@@ -1,0 +1,105 @@
+/////////////////////////////////////////////////////////Update Methods///////////////////////////////////////////////////////////
+
+
+    public long? deleteExpenseOfUser(bool isAssigned, long? expenseid)
+        {
+            long? result = null;
+            var deletedExpenseFileID = _schedulingDB.tbl_ibw_expenses.Where(x => x.int_expense_id == expenseid && x.vc_google_file_id != null && x.vc_google_file_id != "").Select(y => y.vc_google_file_id).FirstOrDefault();
+            if (deletedExpenseFileID != "" || deletedExpenseFileID != null)
+            {
+                GoogleDriveFilesRepository.DeleteFile(deletedExpenseFileID);
+            }
+            _schedulingDB.deleteExpenseOfUser(expenseid, isAssigned, ref result);
+            return result;
+        }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Author        : Siddhant Chawade
+        //Date          : 21st Dec 2019
+        //Description   : To save timesheet and expenses
+        public long? SaveTimesheetExpenses(Timesheet data)
+        {
+            long? result = (dynamic)null;
+            long? timesheetId = (dynamic)null;
+            try
+            {
+                List<ExpenseCodes> expenseData = _adminMethods.GetExpenseCodes();
+                if (data != null)
+                {
+                    if (data.RefId != null)
+                    {
+                        _schedulingDB.sp_upsert_timesheet(data.TimesheetId, data.Date, data.RefId, data.SiteId, data.SowId, data.TaskId, data.JobCodeId,
+                            data.WorkedHours, data.Remarks, data.IncludeExpenses, data.UserId, ref result);
+                        timesheetId = result;
+                    }
+                    if (data.ExpensesList != null && data.ExpensesList.Count > 0)
+                    {
+                        string userName = string.Empty;
+                        var user = _adminMethods.GetAllIBWUsers().Where(x => x.int_user_id == data.UserId).FirstOrDefault();
+                        if (user != null)
+                        {
+                            userName = user.vc_user_name + " " + user.vc_alias_name;
+                        }
+                        foreach (var exp in data.ExpensesList)
+                        {
+                            if (exp.googleDriveFile != null)
+                            {
+                                string fileName = expenseData.Where(x => x.ExpenseCodeId == exp.ExpenseCodeId).FirstOrDefault().ExpenseCode + "-" + userName;
+                                //string filePath = Path.Combine(HttpContext.Current.Server.MapPath("~/QuotePurposeAttachments"),
+                                //                    Path.GetFileName(exp.googleDriveFile.FileName));
+                                //exp.googleDriveFile.SaveAs(filePath);
+                                exp.GoogleFileId = GoogleDriveFilesRepository.FileUploadInFolderDirect(HelperMethods.Literals.GDriveExpensegFolderId, exp.googleDriveFile, fileName, exp.googleDriveFile.ContentType);
+                                //if (File.Exists(filePath))
+                                //    File.Delete(filePath);
+                            }
+
+                            exp.Date = exp.Date != null ? exp.Date : data.Date;
+                            exp.RefId = exp.RefId != null ? exp.RefId : data.RefId;
+                            exp.SiteId = exp.SiteId != null ? exp.SiteId : data.SiteId;
+                            exp.SowId = exp.SowId != null ? exp.SowId : data.SowId;
+                            exp.TaskId = exp.TaskId != null ? exp.TaskId : data.TaskId;
+                            exp.JobCodeId = exp.JobCodeId != null ? exp.JobCodeId : data.JobCodeId;
+                            exp.UserId = exp.UserId != null ? exp.UserId : data.UserId;
+                            exp.TimesheetId = exp.TimesheetId != null ? exp.TimesheetId : timesheetId;
+                            _schedulingDB.sp_upsert_expense(exp.ExpenseId, exp.TimesheetId, exp.Date, exp.RefId, exp.SiteId, exp.SowId, exp.TaskId, exp.JobCodeId,
+                                exp.ExpenseCodeId, exp.Quantity, exp.Rate, exp.Total, exp.IsReimbursable, exp.Description, exp.GoogleFileId, exp.UserId, ref result);
+                        }
+                        if (data.DeletedExpensesList != null && data.DeletedExpensesList.Count > 0)
+                        
+                        {
+                            var datasss = _schedulingDB.tbl_ibw_expenses.ToList();
+                            var deletedExpensesList = _schedulingDB.tbl_ibw_expenses.Where(x => data.DeletedExpensesList.Contains(x.int_expense_id) && x.vc_google_file_id != null && x.vc_google_file_id != "").Select(y => y.vc_google_file_id).ToList();
+                            _quoteMethods.deleteGoogleDriveFilesfromList(deletedExpensesList);
+                            var datasssss = _schedulingDB.tbl_ibw_expenses.Where(x => data.DeletedExpensesList.Contains(x.int_expense_id)).ToList();
+
+                            using (var con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+                            {
+                                string totalExpensItems = "(" + string.Join(",", data.DeletedExpensesList) + ")";
+                                string sqlCommand = "delete from tbl_ibw_timesheet_expenses_notes where int_expense_id in" + totalExpensItems + ";" + "delete from tbl_ibw_expense where int_expense_id in" + totalExpensItems;
+                                using (var cmd = new SqlCommand(sqlCommand, con))
+                                {
+                                    //  cmd.CommandType = CommandType.TableDirect;
+                                    con.Open();
+                                    cmd.ExecuteNonQuery();
+                                    con.Close();
+                                }
+                            }
+                     
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+

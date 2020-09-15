@@ -1,0 +1,197 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<!-- Latest compiled and minified CSS -->
+<link href="~/Content/Styles/bootstrap.min.css" rel="stylesheet" />
+<style>
+    .fntsanserif {
+        font-family: sans-serif;
+    }
+
+    td, th {
+        border-color: #959191 !important;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    .feebody > tr {
+        page-break-inside: avoid;
+    }
+
+    .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+        border-bottom-width: 1px;
+    }
+
+    .feeheaders {
+        background-color: #e3e3e3;
+    }
+     .avoid {
+    page-break-inside: avoid !important;
+  }
+    .paddingleftright{
+padding-left:0px !important;
+padding-right:0px !important;
+    }
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Invoice</title>
+</head>
+<body>
+    <br />
+    <div class="col-sm-12 paddingleftright">
+        <div class="col-sm-12 paddingleftright">
+            <table class="table" style="border-top: 2px solid white;">
+                <tr>
+                    <td style="width:50%">
+                        <div class="col-sm-12" style="border: 1px solid #959191;"><label style="padding-top:8px;font-size:18px;"><b>Invoice To</b></label></div>
+                        <div class="col-sm-12" style="border: 1px solid #959191;margin-top:5px">
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>@TempData["ClientName"]</span>
+                            @if (TempData["ContactName"].ToString() != "-")
+                            {
+                                <br /><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@TempData["ContactName"]</span>
+                            }
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>@TempData["ClientAddress"]</span>
+                            <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>@TempData["ClientCity"], @TempData["ClientProvince"] @TempData["ClientPostalCode"]</span><br /><br /><br /><br /><br />
+                            <table class="table table-bordered" style="margin-bottom: -1px;border-bottom: 0;margin-left: -15px;width:50%">
+                                <tr><td class="text-center" style="width:50%">P.O. No.</td><td>@TempData["PurchaseOrderNumber"]</td></tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td style="width:25%"></td>
+                    <td style="text-align:right;">
+                        <table class="table table-bordered" style="margin-bottom:5px;">
+                            <tr style="text-align: center;"><td><label style="font-size:16px;"><b>Date</b></label></td><td><b><label style="font-size:16px;">Invoice#</label></b></td></tr>
+                            <tr style="text-align: center;"><td><label style="font-size:16px;font-weight: 100;">@TempData["InvoiceDate"]</label></td><td><label style="font-size:16px;font-weight: 100;">@TempData["InvoiceNumber"]</label></td></tr>
+                            <tr><td colspan="2" class="text-center"><label style="font-size:16px;"><b>GST/HST No. @TempData["GSTorHSTNo."]</b></label></td></tr>
+                        </table>
+                        <table class="table table-bordered">
+                            <tr style="text-align: center;"><td style="border: 1px solid black !important;"><label style="font-size:16px;"><b>Terms</b></label></td></tr>
+                            <tr style="text-align: center;background-color:#d3d2d2"><td style="border: 1px solid black !important;"><label style="font-size:16px;"><b>@TempData["Terms"] Days</b></label></td></tr>
+                        </table>
+                        <div class="col-sm-12 pull-right" style="padding:0;padding-top:8px;text-align: right;margin-bottom:-25px">
+                            <a target="_blank" href="https://ibwsurveyors.com/payments/"><img style="height: 170px;width:200px" src="/Content/Images/invoice_payment_gateway_image.png"></a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="col-sm-6">
+
+            </div>
+            <div class="col-sm-3 col-lg-offset-3">
+
+            </div>
+        </div>
+        <div class="col-sm-12 paddingleftright">
+            <div class="col-sm-12" style="padding: 10px !important;">
+                <table class="table table-bordered table-responsive">
+                    <tbody>
+                        <tr>
+                            <td style="width:75%;font-size: 18px;"><b>Invoice Details</b></td>
+                            @*<td class="text-center" style="font-size: 18px;"><b>Invoice Amount</b></td>*@
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Project Details: </b>@TempData["ProjectDetails"]<br /><br /><b>SERVICES:</b><br />@TempData["Services"]
+
+                            </td>
+                            @*<td style="vertical-align:middle;text-align:right;">@TempData["InvoiceAmount"]</td>*@
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12 paddingleftright">
+            <div class="col-sm-12" style="padding: 10px !important;">
+                <b>FEES</b>
+                <table class="table table-bordered table-responsive">
+                    <thead>
+                        <tr style="visibility:hidden">
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr class="feeheaders"><th>Site</th><th>SOW</th><th>Fee Structure</th></tr>
+                    </thead>
+                    <tbody class="feebody">
+                        @if (ViewBag.feedetails != null)
+                        {
+                            foreach (var item in ViewBag.feedetails)
+                            {
+                                <tr><td>@item.vc_site_name</td><td>@item.vc_sow_name</td><td>@item.vc_fee_structure</td></tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12 paddingleftright avoid">
+            <div class="col-sm-12" style="padding: 10px !important;">
+                <table class="table table-bordered" style="margin-bottom:0px;">
+                    <thead>
+                        <tr style="visibility:hidden">
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="5" style="width:65%;">
+                                <b style="font-size: 18px;">Invoice Summary</b>
+                            <td style="vertical-align:middle;text-align:right;"><span class="pull-left" style="font-size:18px;"><b>Invoice Amount</b></span><span class="pull-right">@TempData["InvoiceAmount"]<span></span></span></td>
+                        </tr>
+                        <tr><td style="vertical-align:middle;text-align:right;"><span class="pull-left" style="font-size:18px;"><b>HST @@@TempData["HSTPercent"]%</b></span><span class="pull-right">@TempData["HSTTotal"]<span></span></span></td></tr>
+                        <tr><td style="vertical-align:middle;text-align:right;"><span class="pull-left" style="font-size:18px;"><b>Total</b></span><span class="pull-right">@TempData["Total"]<span></span></span></td></tr>
+                        <tr><td style="vertical-align:middle;text-align:right;"><span class="pull-left" style="font-size:18px;"><b>Payments/Credits</b></span><span class="pull-right">@TempData["PaymentorCredits"]<span></span></span></td></tr>
+                        <tr><td style="vertical-align:middle;text-align:right;"><span class="pull-left" style="font-size:25px;"><b>Balance Due</b></span><span class="pull-right">@TempData["BalanceDue"]<span></span></span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-12 paddingleftright">
+            <table class="table" style="margin-bottom:0px;"><tr><td style="text-align:right;border: 0px solid white !important;"><label style="font-size: 12px;font-weight: 100;">@string.Join(" ", TempData["ManualInvoiceNumber"].ToString().Reverse().Reverse()) </label></td></tr></table>
+            @*<div class="col-sm-12 pull-right" style="text-align:right;font-family:sans-serif;margin-bottom:10px;"><label style="font-size: 12px;font-weight: 700;">@string.Join(" ", TempData["ManualInvoiceNumber"].ToString().Reverse().Reverse()) </label></div>*@
+        </div>
+        <div class="col-sm-12 paddingleftright avoid">
+            @*<table class="table" style="margin-bottom:0px;">
+                <thead>
+                    <tr style="visibility:hidden">
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody style="background-color:#d3d2d2;border: 1px solid;border-bottom: 0;">
+                    <tr style="font-size: 12px;border-bottom: 2px solid #d3d2d2;" class="text-center"><td>Terms and Conditions</td></tr>
+                    <tr style="font-size: 12px;border-bottom: 2px solid #d3d2d2;" class="text-center"><td>@TempData["TermsandConditions"]</td></tr>
+                    <tr style="font-size: 15px;border-bottom: 1px solid black;" class="text-center"><td>THANK YOU FOR YOUR BUSINESS!</td></tr>
+                    </tbody>
+                </table>*@
+            <table class="table" style="margin-bottom:0px;">
+        <thead>
+            <tr style="visibility:hidden">
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        </table>
+                    <div class="col-sm-12" style="font-family:sans-serif;padding: 10px !important;">
+                        <div class="col-sm-12 text-center" style="background-color:#d3d2d2;border: 1px solid;border-bottom: 0;">
+                            <label style="margin-top: 5px;font-size: 12px;">Terms and Conditions</label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="background-color:#d3d2d2;border: 1px solid;border-top: 0;border-bottom: 0;">
+                            <label style="margin-top: 5px;font-size: 12px;">
+                                @TempData["TermsandConditions"]
+                            </label>
+                        </div>
+                        <div class="col-sm-12 text-center" style="background-color:#d3d2d2;border: 1px solid;border-top: 0;">
+                            <label style="margin-top: 5px;font-size: 15px;">THANK YOU FOR YOUR BUSINESS!</label>
+                        </div>
+                    </div>
+        </div>
+
+</body>
+</html>

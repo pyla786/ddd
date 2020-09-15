@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IBW_QA_23rd_Mar2020" Class="AdminExtensionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=IBW_QA_23rd_Mar2020;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="IBW_QA_23rd_Mar2020ConnectionString" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.GetCommonMasterData" Method="GetCommonMasterData">
+    <ElementType Name="GetCommonMasterDataResult">
+      <Column Name="vc_category_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_associated_clients_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_associated_config_questions_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_common_master_data_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_common_master_data_category_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_common_master_data_name" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dataTypeAssignedCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

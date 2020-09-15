@@ -1,0 +1,1500 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IBW_QA_23rd_Mar2020" Class="AdminDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=IBW_QA_23rd_Mar2020;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DefaultConnection" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_ibw_employee_types" Member="tbl_ibw_employee_types">
+    <Type Name="tbl_ibw_employee_type">
+      <Column Name="int_employee_type_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_employee_type" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_ibw_employee_type_tbl_ibw_user" Member="tbl_ibw_users" ThisKey="int_employee_type_id" OtherKey="int_employment_type_id" Type="tbl_ibw_user" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_user_jobs" Member="tbl_ibw_user_jobs">
+    <Type Name="tbl_ibw_user_job">
+      <Column Name="int_user_job_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job" Member="tbl_ibw_user" ThisKey="int_created_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job1" Member="tbl_ibw_user1" ThisKey="int_modified_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job2" Member="tbl_ibw_user2" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_job_code_master_tbl_ibw_user_job" Member="tbl_ibw_job_code_master" ThisKey="int_job_code_master_id" OtherKey="int_job_code_master_id" Type="tbl_ibw_job_code_master" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_user_roles" Member="tbl_ibw_user_roles">
+    <Type Name="tbl_ibw_user_role">
+      <Column Name="int_user_role_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_ibw_role_master_tbl_ibw_user_role" Member="tbl_ibw_role_master" ThisKey="int_role_master_id" OtherKey="int_role_master_id" Type="tbl_ibw_role_master" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role" Member="tbl_ibw_user" ThisKey="int_created_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role1" Member="tbl_ibw_user1" ThisKey="int_modified_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role2" Member="tbl_ibw_user2" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_role_master" Member="tbl_ibw_role_masters">
+    <Type Name="tbl_ibw_role_master">
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_role_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_system" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tbl_ibw_role_master_tbl_ibw_user_role" Member="tbl_ibw_user_roles" ThisKey="int_role_master_id" OtherKey="int_role_master_id" Type="tbl_ibw_user_role" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_screen_master" Member="tbl_ibw_screen_masters">
+    <Type Name="tbl_ibw_screen_master">
+      <Column Name="int_screen_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_screen_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_screen_url" Type="System.String" DbType="VarChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_module" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_read" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_write" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_approvals" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete_permission" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_screen_name_text" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="int_sequence" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_screen_master" Member="tbl_ibw_user" ThisKey="int_created_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_screen_master1" Member="tbl_ibw_user1" ThisKey="int_modified_by" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_users" Member="tbl_ibw_users">
+    <Type Name="tbl_ibw_user">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job" Member="tbl_ibw_user_jobs" ThisKey="int_user_id" OtherKey="int_created_by" Type="tbl_ibw_user_job" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job1" Member="tbl_ibw_user_jobs1" ThisKey="int_user_id" OtherKey="int_modified_by" Type="tbl_ibw_user_job" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_job2" Member="tbl_ibw_user_jobs2" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user_job" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role" Member="tbl_ibw_user_roles" ThisKey="int_user_id" OtherKey="int_created_by" Type="tbl_ibw_user_role" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role1" Member="tbl_ibw_user_roles1" ThisKey="int_user_id" OtherKey="int_modified_by" Type="tbl_ibw_user_role" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_role2" Member="tbl_ibw_user_roles2" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user_role" />
+      <Association Name="tbl_ibw_user_tbl_ibw_screen_master" Member="tbl_ibw_screen_masters" ThisKey="int_user_id" OtherKey="int_created_by" Type="tbl_ibw_screen_master" />
+      <Association Name="tbl_ibw_user_tbl_ibw_screen_master1" Member="tbl_ibw_screen_masters1" ThisKey="int_user_id" OtherKey="int_modified_by" Type="tbl_ibw_screen_master" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user" Member="tbl_ibw_users" ThisKey="int_user_id" OtherKey="int_reporting_manager_id" Type="tbl_ibw_user" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_fcm_key" Member="tbl_ibw_user_fcm_keys" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user_fcm_key" />
+      <Association Name="tbl_ibw_user_tbl_ibw_alert" Member="tbl_ibw_alerts" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_alert" />
+      <Association Name="tbl_ibw_employee_type_tbl_ibw_user" Member="tbl_ibw_employee_type" ThisKey="int_employment_type_id" OtherKey="int_employee_type_id" Type="tbl_ibw_employee_type" IsForeignKey="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user" Member="tbl_ibw_user1" ThisKey="int_reporting_manager_id" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_user_fcm_keys" Member="tbl_ibw_user_fcm_keys">
+    <Type Name="tbl_ibw_user_fcm_key">
+      <Column Name="int_fcm_user_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_fcm_key" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_user_fcm_key" Member="tbl_ibw_user" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_alerts" Member="tbl_ibw_alerts">
+    <Type Name="tbl_ibw_alert">
+      <Column Name="int_alert_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_alert_title" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_message" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_router_link" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_is_read" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tbl_ibw_user_tbl_ibw_alert" Member="tbl_ibw_user" ThisKey="int_user_id" OtherKey="int_user_id" Type="tbl_ibw_user" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_job_code_master" Member="tbl_ibw_job_code_masters">
+    <Type Name="tbl_ibw_job_code_master">
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_chargeout_rate_per_hr" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="VarChar(2500)" CanBeNull="true" />
+      <Column Name="int_job_code_category" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tbl_ibw_job_code_master_tbl_ibw_user_job" Member="tbl_ibw_user_jobs" ThisKey="int_job_code_master_id" OtherKey="int_job_code_master_id" Type="tbl_ibw_user_job" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_upsertPermissionLevel" Method="sp_upsertPermissionLevel">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_upsertJobCodes" Method="sp_upsertJobCodes">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getRoleOfUser" Method="sp_getRoleOfUser">
+    <ElementType Name="sp_getRoleOfUserResult">
+      <Column Name="int_user_role_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_role_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_system" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_changeStatusDeleteUser" Method="sp_changeStatusDeleteUser">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_delete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getRightsOfUser" Method="sp_getRightsOfUser">
+    <Parameter Name="userId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_getRightsOfUserResult">
+      <Column Name="int_role_permission_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_screen_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_right_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="rightName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="roleName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_screen_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_screen_url" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="vc_module" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateSettings" Method="UpdateSettings">
+    <Parameter Name="settingId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="newValue" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="UpdateSettingsResult">
+      <Column Name="UpdatedRows" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateKanbanStageStaus" Method="UpdateKanbanStageStaus">
+    <Parameter Name="intConfigureKanbanId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateJobcodeStaus" Method="UpdateJobcodeStaus">
+    <Parameter Name="intJobCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetSettings" Method="GetSettings">
+    <ElementType Name="GetSettingsResult">
+      <Column Name="int_setting_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_setting_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="vc_value" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="vc_input_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteKanbanStage" Method="DeleteKanbanStage">
+    <Parameter Name="intConfigureKanbanId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteJobcode" Method="DeleteJobcode">
+    <Parameter Name="intJobCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_insertScreenPermissions" Method="sp_insertScreenPermissions">
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_screen_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_readAll" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_writeAll" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_deleteAll" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_approveAll" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllScreenPermissions" Method="sp_getAllScreenPermissions">
+    <ElementType Name="sp_getAllScreenPermissionsResult">
+      <Column Name="int_role_permission_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_screen_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_right_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_screen_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_read" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_write" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_approvals" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete_permission" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="RightName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_deleteScreenPermissions" Method="sp_deleteScreenPermissions">
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Boolean" DbType="Bit" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_permissionRolesUpsert" Method="sp_permissionRolesUpsert">
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_role_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deleteUserRoles" Method="sp_deleteUserRoles">
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllUserRolesWithCount" Method="sp_getAllUserRolesWithCount">
+    <ElementType Name="sp_getAllUserRolesWithCountResult">
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_role_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_system" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ScreensCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalScreensCount" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="NumberOfUsers" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAssetCategories" Method="GetAssetCategories">
+    <ElementType Name="GetAssetCategoriesResult">
+      <Column Name="int_asset_category_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_category" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_category_prefix" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAssetCategoriesSerial" Method="GetAssetCategoriesSerial">
+    <Parameter Name="intCategoryId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetAssetCategoriesSerialResult">
+      <Column Name="int_asset_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_category_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_make" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_model" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dt_purchased_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_dealer" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_purchase_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="vc_serial_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.AssetDeleteAndStatusChange" Method="AssetDeleteAndStatusChange">
+    <Parameter Name="assetId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="btDelete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetGridColumns" Method="GetGridColumns">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_screen_name" Type="System.String" DbType="NVarChar(MAX)" />
+    <ElementType Name="GetGridColumnsResult">
+      <Column Name="int_preferred_grid_column_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_screen_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_preferred_grid_columns" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getIBWClientTypes" Method="sp_getIBWClientTypes">
+    <ElementType Name="sp_getIBWClientTypesResult">
+      <Column Name="int_client_type_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_type" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getIBWCountries" Method="sp_getIBWCountries">
+    <ElementType Name="sp_getIBWCountriesResult">
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_country_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getIBWMuncipalities" Method="sp_getIBWMuncipalities">
+    <ElementType Name="sp_getIBWMuncipalitiesResult">
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_municipality_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_state_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getIBWStates" Method="sp_getIBWStates">
+    <Parameter Name="int_country_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_getIBWStatesResult">
+      <Column Name="int_state_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_state_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_Save_Grid_Columns" Method="sp_Save_Grid_Columns">
+    <Parameter Name="vc_grid_columns" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_screen_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateExpenseCodeStaus" Method="UpdateExpenseCodeStaus">
+    <Parameter Name="intExpenseCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteExpenseCode" Method="DeleteExpenseCode">
+    <Parameter Name="intExpenseCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertCommonMasterData" Method="UpsertCommonMasterData">
+    <Parameter Name="intCommonMasterDataId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcCommonMasterDataCategoryName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcCommonMasterData" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateCommonMasterDataStaus" Method="UpdateCommonMasterDataStaus">
+    <Parameter Name="intCommonMasterDataId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteCommonMasterData" Method="DeleteCommonMasterData">
+    <Parameter Name="intCommonMasterDataId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertLookup" Method="UpsertLookup">
+    <Parameter Name="lookupId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="codeMasterId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="lookupName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteLookup" Method="DeleteLookup">
+    <Parameter Name="lookupId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btDelete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertAssetCategory" Method="UpsertAssetCategory">
+    <Parameter Name="intAssetCategoryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcAssetCategory" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcAssetCategoryPrefix" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateAssetCategoryStaus" Method="UpdateAssetCategoryStaus">
+    <Parameter Name="intAssetCategoryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteAssetCategory" Method="DeleteAssetCategory">
+    <Parameter Name="intAssetCategoryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_upsertPotentialLevels" Method="sp_upsertPotentialLevels">
+    <Parameter Name="int_RFQ_potential_level_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_potential_level_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_color_code" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllPotentialLevels" Method="sp_getAllPotentialLevels">
+    <ElementType Name="sp_getAllPotentialLevelsResult">
+      <Column Name="int_RFQ_potential_level_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_potential_level" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_color_code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_deleteMunicipality" Method="sp_deleteMunicipality">
+    <Parameter Name="int_municipality_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_deletePotential" Method="sp_deletePotential">
+    <Parameter Name="int_potential_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_municipalityUpsert" Method="sp_municipalityUpsert">
+    <Parameter Name="int_municipality_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_municipality_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertConfigQuestion" Method="UpsertConfigQuestion">
+    <Parameter Name="intConfigQuestionId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intSurveyPurposeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcConfigQuestion" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetConfigQuestions" Method="GetConfigQuestions">
+    <ElementType Name="GetConfigQuestionsResult">
+      <Column Name="int_configure_question_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_survey_purpose_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_configure_question" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_survey_purpose_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteConfigQuestion" Method="DeleteConfigQuestion">
+    <Parameter Name="intConfigQuestionId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetCodeMaster" Method="GetCodeMaster">
+    <ElementType Name="GetCodeMasterResult">
+      <Column Name="int_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_code_master_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_module_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteHoliday" Method="DeleteHoliday">
+    <Parameter Name="holidayId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetHolidays" Method="GetHolidays">
+    <ElementType Name="GetHolidaysResult">
+      <Column Name="holidayId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="holidayFor" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="holidayDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="createdBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="strHolidayDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertHoliday" Method="InsertHoliday">
+    <Parameter Name="holidayId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="holidayFor" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="holidayOn" Type="System.String" DbType="VarChar(20)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertLeaveReason" Method="UpsertLeaveReason">
+    <Parameter Name="intLeaveReasonId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intTypeOfAbsenceId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcLeaveReason" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.DeleteLeaveReason" Method="DeleteLeaveReason">
+    <Parameter Name="intLeaveReasonId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="DeleteLeaveReasonResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.InsertErrors" Method="InsertErrors">
+    <Parameter Name="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="error" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="url" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.InsertEvent" Method="InsertEvent">
+    <Parameter Name="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="event" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetErrorLog" Method="GetErrorLog">
+    <ElementType Name="GetErrorLogResult">
+      <Column Name="eventLoggedDt" Type="System.String" DbType="VarChar(38)" CanBeNull="true" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="pageurl" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="errorText" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetEventLog" Method="GetEventLog">
+    <ElementType Name="GetEventLogResult">
+      <Column Name="eventLoggedDt" Type="System.String" DbType="VarChar(38)" CanBeNull="true" />
+      <Column Name="userName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="roleName" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="screenName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="eventType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="eventDescription" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsertIBWClients" Method="sp_upsertIBWClients">
+    <Parameter Name="int_client_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_client_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_email" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_phone_number" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="int_client_type_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_street_address" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_city" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_zip" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="int_country_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_state_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_muncipality_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ChangeStatusClient" Method="sp_ChangeStatusClient">
+    <Parameter Name="int_client_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_delete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_flag" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_ChangeStatusContact" Method="sp_ChangeStatusContact">
+    <Parameter Name="int_contact_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_delete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getAllSettings" Method="getAllSettings">
+    <ElementType Name="getAllSettingsResult">
+      <Column Name="int_setting_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_setting_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="vc_description" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="vc_value" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="vc_input_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAssetCategory" Method="GetAssetCategory">
+    <ElementType Name="GetAssetCategoryResult">
+      <Column Name="int_asset_category_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_category" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_asset_category_prefix" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_userRoleUpsert" Method="sp_userRoleUpsert">
+    <Parameter Name="vc_users_for_role" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="int_role_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllUsersOfRole" Method="sp_getAllUsersOfRole">
+    <ElementType Name="sp_getAllUsersOfRoleResult">
+      <Column Name="int_user_role_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_role_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpsertAsset" Method="UpsertAsset">
+    <Parameter Name="assetId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="CategoryId" Parameter="categoryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Name" Parameter="name" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Number" Parameter="number" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Make" Parameter="make" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Model" Parameter="model" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="SerialNumber" Parameter="serialNumber" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Dealer" Parameter="dealer" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="assetDescription" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="PurchaseDate" Parameter="purchaseDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="PurchasePrice" Parameter="purchasePrice" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="AssetNumberNew" Parameter="assetNumberNew" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetAssets" Method="GetAssets">
+    <ElementType Name="GetAssetsResult">
+      <Column Name="assetId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="CategoryId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Category" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Make" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Model" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="SerialNumber" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Dealer" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="assetDescription" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="PurchaseDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="strPurchaseDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="PurchasePrice" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreatedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="CreatedDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifiedBy" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ModifiedOn" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="AssetNumberNew" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_userSuperAdminStatusChange" Method="sp_userSuperAdminStatusChange">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_superadmin" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_userModeChange" Method="sp_userModeChange">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_superadmin_mode" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getProjectManagerofUser" Method="getProjectManagerofUser">
+    <Parameter Name="userId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getProjectManagerofUserResult">
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteTask" Method="DeleteTask">
+    <Parameter Name="TaskId" Parameter="taskId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="DeleteTaskResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateUserLeaveActivityLogReadStatus" Method="UpdateUserLeaveActivityLogReadStatus">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpsertTask" Method="UpsertTask">
+    <Parameter Name="intTaskId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcTaskName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcJobCodeIds" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.changePostionForTasks" Method="changePostionForTasks">
+    <Parameter Name="fromPosition" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="toPosition" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetLeaveReasons" Method="GetLeaveReasons">
+    <ElementType Name="GetLeaveReasonsResult">
+      <Column Name="vc_absence_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_leave_reason_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_type_of_absence_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_leave_reason" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetLookupOptions" Method="GetLookupOptions">
+    <ElementType Name="GetLookupOptionsResult">
+      <Column Name="int_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_code_master_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_module_name" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="int_lookup_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_lookup_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_system" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpdateTaskStaus" Method="UpdateTaskStaus">
+    <Parameter Name="intTaskId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetTasks" Method="GetTasks">
+    <ElementType Name="GetTasksResult">
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_task_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_position_index" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAllDocumentsTypeOfTask" Method="GetAllDocumentsTypeOfTask">
+    <Parameter Name="int_task_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetAllDocumentsTypeOfTaskResult">
+      <Column Name="int_task_document_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_document_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_lookup_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetAllDocumentsType" Method="GetAllDocumentsType">
+    <ElementType Name="GetAllDocumentsTypeResult">
+      <Column Name="int_task_document_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_document_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_lookup_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsertIBWUsers" Method="sp_upsertIBWUsers">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_user_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_alias_name" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="vc_email" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_phone_number" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="vc_jobcodes" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_permission_level" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="strstartdate" Type="System.String" DbType="VarChar(12)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getSuperAdminsAndReportingManagers" Method="sp_getSuperAdminsAndReportingManagers">
+    <ElementType Name="sp_getSuperAdminsAndReportingManagersResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getSuperAdminsAndPMs" Method="sp_getSuperAdminsAndPMs">
+    <ElementType Name="sp_getSuperAdminsAndPMsResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getAllProjectManagers" Method="sp_getAllProjectManagers">
+    <ElementType Name="sp_getAllProjectManagersResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getAllReportingManagers" Method="sp_getAllReportingManagers">
+    <ElementType Name="sp_getAllReportingManagersResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.DeleteLeaveRequest" Method="DeleteLeaveRequest">
+    <Parameter Name="intLeaveRequestId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intTypeOfAbsenceId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intLeaveReasonId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dtFromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="dtToDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="intDuration" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="intSessionuserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcRemarks" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="DeleteLeaveRequestResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ReviewLeaveRequest" Method="ReviewLeaveRequest">
+    <Parameter Name="intLeaveRequestId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intLeaveRequestedUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intDuration" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="intAuthorisedById" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="isApproved" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isDeclined" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="vc_remarks" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="vcLeaveReason" Type="System.String" DbType="VarChar(200)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="ReviewLeaveRequestResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.insertAlerts" Method="insertAlerts">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_title" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_message" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="routerlink" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insertFCMToken" Method="insertFCMToken">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_fcm_token" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.deleteFCMToken" Method="deleteFCMToken">
+    <Parameter Name="vc_fcm_token" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllIBWUsers" Method="sp_getAllIBWUsers">
+    <ElementType Name="sp_getAllIBWUsersResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_role_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getuserleaverequest" Method="sp_getuserleaverequest">
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="sp_getuserleaverequestResult">
+      <Column Name="int_leave_request_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_type_of_absence_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_leave_reason_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_from_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_to_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="tm_from_time" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="tm_to_time" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="is_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_declined" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_full_day" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_authorized_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_duration" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pre_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pre_pto_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="LeaveType" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.VerifyClientName" Method="VerifyClientName">
+    <Parameter Name="clientId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientName" Type="System.String" DbType="VarChar(100)" />
+    <ElementType Name="VerifyClientNameResult">
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_phone_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_client_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_flag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_clientCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="dt_activity_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getAllUsersExceptSuperAdmins" Method="sp_getAllUsersExceptSuperAdmins">
+    <ElementType Name="sp_getAllUsersExceptSuperAdminsResult">
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="strStartDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id1" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_alias_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_email" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_phone_number" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="int_employment_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_reporting_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_eligible_vacation_days" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_opening_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_password" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_auth_token" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_verified" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_total_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pto_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_verificationlink_sent_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_superadmin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_user_last_loggedin_mode" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_pto_leave_for_user" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_hrs_per_day" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="dt_startdate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ReportingManagerName" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="int_leaves_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_sch_actions_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_timesheets_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_as_rm_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_as_pm_am_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpsertJobcode" Method="UpsertJobcode">
+    <Parameter Name="intJobCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intJobCodeCategoryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcJobCode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcJobCodeTitle" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="decChargeoutRate" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="vcNotes" Type="System.String" DbType="VarChar(2500)" />
+    <Parameter Name="btStatus" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="UpsertJobcodeResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetJobcodes" Method="GetJobcodes">
+    <ElementType Name="GetJobcodesResult">
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="dec_chargeout_rate_per_hr" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="VarChar(2500)" CanBeNull="true" />
+      <Column Name="int_job_code_category" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_associated_users_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vc_job_code_category" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.upsertDeleteActionMaster" Method="upsertDeleteActionMaster">
+    <Parameter Name="int_action_master_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_action_master_name" Type="System.String" DbType="NVarChar(300)" />
+    <Parameter Name="int_jobCode_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isDeleted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getAllActionsInMasterData" Method="getAllActionsInMasterData">
+    <ElementType Name="getAllActionsInMasterDataResult">
+      <Column Name="int_action_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_action_master_name" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="dec_chargeout_rate_per_hr" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getCountOfQuotesForActions" Method="getCountOfQuotesForActions">
+    <Parameter Name="actionId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getCountOfQuotesForActionsResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getJobCodesOfUser" Method="sp_getJobCodesOfUser">
+    <ElementType Name="sp_getJobCodesOfUserResult">
+      <Column Name="int_user_job_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_job_code_master_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_job_code" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_job_code_category" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_job_code_category" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_getAllIBWClients" Method="sp_getAllIBWClients">
+    <ElementType Name="sp_getAllIBWClientsResult">
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_client_phone_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_Client_Type" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="int_client_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_activity_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_Country_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_State_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_state_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_Muncipality_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_city" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_zip_or_postal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vc_site_street_address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_flag" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_clientCode" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="QuotesCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ProjectsCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_upsertIBWContacts" Method="sp_upsertIBWContacts">
+    <Parameter Name="int_contact_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_client_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_contact_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_contact_job_title" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_email" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_phone_number" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="vc_street_address" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_city" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_zip" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="int_country_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_state_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_muncipality_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_primary_contact" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_billing_contact" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_client_address_copied" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetLeaveRequests" Method="GetLeaveRequests">
+    <ElementType Name="GetLeaveRequestsResult">
+      <Column Name="int_leave_request_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_type_of_absence_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_leave_reason_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_from_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_to_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="tm_from_time" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="tm_to_time" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="is_approved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_declined" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="is_full_day" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_authorized_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_duration" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pre_leave_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="int_pre_pto_balance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="VarChar(300)" CanBeNull="true" />
+      <Column Name="vc_absence_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_reason" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="intTotalLeaveBalance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="intOpeningLeaveBalance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="intPtoLeaveBalance" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="vc_reporting_manager_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="timeDuration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="vc_leave_activity_log_remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="int_rm_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetLeavesActivityLog" Method="GetLeavesActivityLog">
+    <Parameter Name="UserId" Parameter="userId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetLeavesActivityLogResult">
+      <Column Name="int_leave_request_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="vc_activity_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_activity_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_absence_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_absence_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_leave_reason_type" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="int_leave_reason_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_from_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="dt_to_date" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="int_actual_paid_leaves" Type="System.Decimal" DbType="Decimal(5,2)" CanBeNull="true" />
+      <Column Name="vc_leave_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="int_leave_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="int_user_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_to_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_from_user_name" Type="System.String" DbType="VarChar(201)" CanBeNull="true" />
+      <Column Name="vc_remarks" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="bt_is_read" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="VarChar(300) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpsertExpenseCode" Method="UpsertExpenseCode">
+    <Parameter Name="intExpenseCodeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcExpenseCode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intExpenseUnitId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intExpenseLimitTypeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="decExpenseLimitAmount" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="decRate" Type="System.Decimal" DbType="Decimal(10,2)" />
+    <Parameter Name="isDefault" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="isReimbursable" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_attachment_required" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetExpenseCode" Method="GetExpenseCode">
+    <ElementType Name="GetExpenseCodeResult">
+      <Column Name="int_expense_code_master_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_expense_code" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_expense_unit_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_expense_limit_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_expense_limit_amout" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_rate" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="bt_isDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="bt_isReimbursable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="bt_attachment_required" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_expense_unit" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_expense_limit_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpsertKanbanStage" Method="UpsertKanbanStage">
+    <Parameter Name="intConfigureKanbanId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcKanbanStageName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcKanbanTypeName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="vcColorCode" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.sp_getAllIBWContacts" Method="sp_getAllIBWContacts">
+    <ElementType Name="sp_getAllIBWContactsResult">
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_client_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_job_title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_contact_phone_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_primary_contact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_billing_contact" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="dt_activity_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_client_address_copied" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_Country_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_State_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_state_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_Muncipality_Name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_city" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_zip_or_postal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vc_site_street_address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="QuotesCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetKanbanStages" Method="GetKanbanStages">
+    <ElementType Name="GetKanbanStagesResult">
+      <Column Name="int_configure_kanban_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_kanban_stage_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="int_kanban_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_system" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_color_code" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vc_kanban_type" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="OptionCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StageAssignedCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.UpsertLeaveRequest" Method="UpsertLeaveRequest">
+    <Parameter Name="intLeaveRequestId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intTypeOfAbsenceId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcTypeOfAbsence" Type="System.String" DbType="VarChar(210)" />
+    <Parameter Name="intLeaveCount" Type="System.Int32" DbType="Int" />
+    <Parameter Name="intLeaveReasonId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dtFromDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="intDuration" Type="System.Decimal" DbType="Decimal(5,2)" />
+    <Parameter Name="dtToDate" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="tmFromTime" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="tmToTime" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="btIsFullDay" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="leaveUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="intSessionuserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vcRemarks" Type="System.String" DbType="VarChar(500)" />
+    <Parameter Name="btValuesUpdated" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="vcNotes" Type="System.String" DbType="VarChar(300)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <ElementType Name="UpsertLeaveRequestResult">
+      <Column Name="" Member="Column1" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetCommonMasterData" Method="GetCommonMasterData">
+    <ElementType Name="GetCommonMasterDataResult">
+      <Column Name="vc_category_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_associated_clients_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_associated_config_questions_count" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="int_common_master_data_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_common_master_data_category_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_common_master_data_name" Type="System.String" DbType="VarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="bt_valid" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dataTypeAssignedCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

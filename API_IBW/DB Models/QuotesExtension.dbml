@@ -1,0 +1,660 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="IBW_QA_23rd_Mar2020" Class="QuotesExtensionDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=localhost\SQLEXPRESS;Initial Catalog=IBW_QA_23rd_Mar2020;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="IBW_QA_23rd_Mar2020ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tbl_ibw_quotes" Member="tbl_ibw_quotes">
+    <Type Name="tbl_ibw_quote">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_potential_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_received_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="dt_quoted_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_decision_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_quoted_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="dec_awarded_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_project_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_account_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_prepare_days" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_survey_purpose_detail" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_name" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_path" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_purpose_of_survey_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_lead_source_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_RFQ_saved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_contact_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_contact_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_GDrive_file_id" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="dt_quote_preparation_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_stage_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_legacy_number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="vc_legal_description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_goto_Link" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Association Name="tbl_ibw_quote_tbl_ibw_site" Member="tbl_ibw_sites" ThisKey="int_quote_id" OtherKey="int_quote_id" Type="tbl_ibw_site" />
+      <Association Name="tbl_ibw_quote_tbl_ibw_sow" Member="tbl_ibw_sows" ThisKey="int_quote_id" OtherKey="int_quote_id" Type="tbl_ibw_sow" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_sites" Member="tbl_ibw_sites">
+    <Type Name="tbl_ibw_site">
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_isDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_number" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Association Name="tbl_ibw_site_tbl_ibw_sow" Member="tbl_ibw_sows" ThisKey="int_site_id" OtherKey="int_site_id" Type="tbl_ibw_sow" />
+      <Association Name="tbl_ibw_quote_tbl_ibw_site" Member="tbl_ibw_quote" ThisKey="int_quote_id" OtherKey="int_quote_id" Type="tbl_ibw_quote" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_sows" Member="tbl_ibw_sows">
+    <Type Name="tbl_ibw_sow">
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_sow_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_isDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="int_sow_status_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_invoice_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Association Name="tbl_ibw_quote_tbl_ibw_sow" Member="tbl_ibw_quote" ThisKey="int_quote_id" OtherKey="int_quote_id" Type="tbl_ibw_quote" IsForeignKey="true" />
+      <Association Name="tbl_ibw_site_tbl_ibw_sow" Member="tbl_ibw_site" ThisKey="int_site_id" OtherKey="int_site_id" Type="tbl_ibw_site" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_manage_actions" Member="tbl_ibw_manage_actions">
+    <Type Name="tbl_ibw_manage_action">
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_manage_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_action_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_job_code_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="vc_job_code_title" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="dec_job_code_rate" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_actual_hours" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_actual_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_google_drive_file_name" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_updated_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_isRemedial_action" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="int_team_member_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_scheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_unscheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_rescheduled" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_isActionGenerated" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="tbl_ibw_manage_action_tbl_ibw_manage_actions_file" Member="tbl_ibw_manage_actions_files" ThisKey="int_ibw_manage_action_id" OtherKey="int_ibw_manage_action_id" Type="tbl_ibw_manage_actions_file" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_tasks_in_sow_budget" Member="tbl_tasks_in_sow_budgets">
+    <Type Name="tbl_tasks_in_sow_budget">
+      <Column Name="int_task_in_sow_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_ibw_budget_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="dec_quoted_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_hrs" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_ibw_manage_actions_files" Member="tbl_ibw_manage_actions_files">
+    <Type Name="tbl_ibw_manage_actions_file">
+      <Column Name="int_manage_action_file_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="tbl_ibw_manage_action_tbl_ibw_manage_actions_file" Member="tbl_ibw_manage_action" ThisKey="int_ibw_manage_action_id" OtherKey="int_ibw_manage_action_id" Type="tbl_ibw_manage_action" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.getAllSavedSitesNSowInBudget" Method="getAllSavedSitesNSowInBudget">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getAllSavedSitesNSowInBudgetResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_sow_number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="int_budget_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_manage_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getSavedTasksInBudget" Method="getSavedTasksInBudget">
+    <Parameter Name="int_budget_sow_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getSavedTasksInBudgetResult">
+      <Column Name="int_task_in_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_ibw_budget_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_task_name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="dec_quoted_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_hrs" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_ibw_manage_task_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.saveManageTaskAndAction" Method="saveManageTaskAndAction">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="sowId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="budgetSOWId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="budgetTaskId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="int_job_code_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_job_code_title" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="dec_job_code_rate" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dt_due_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="bt_isRemedial" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_team_member_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.automateActionForDefaultSOW" Method="automateActionForDefaultSOW">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="sowId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="budgetSOWId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="manage_notes" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateQuoteStatus" Method="UpdateQuoteStatus">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="rfqsaved" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="status" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="delete" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="value" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="currentDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="currentDateTime" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="refNumber" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="projectType" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateQuoteStatusActivity" Method="UpdateQuoteStatusActivity">
+    <Parameter Name="activityId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="stageId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="followUpDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="currentDateTime" Type="System.String" DbType="VarChar(30)" />
+    <Parameter Name="optionId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="remarks" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_sow_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_type" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="projectDueDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="projectSetupDueDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.UpdateQuoteDetails" Method="UpdateQuoteDetails">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contactTypeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contactTypeText" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="projectTypeId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="projectManagerId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="accountManagerId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="quoteDueDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="legacyNumber" Type="System.String" DbType="VarChar(11)" />
+    <Parameter Name="quoteQuotedDate" Type="System.String" DbType="VarChar(10)" />
+    <Parameter Name="contactId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contactJobTitle" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactName" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactEmail" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactPhone" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactStreetAddress" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactCity" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactPostalCode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="contactCountryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contactStateId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="contactMunicipalityId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="Quotestreet" Parameter="quotestreet" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Quotecity" Parameter="quotecity" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="Quotezipcode" Parameter="quotezipcode" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="QuotecountryId" Parameter="quotecountryId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="QuotestateId" Parameter="quotestateId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="QuotemunicipalityId" Parameter="quotemunicipalityId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="purposeOfSurveyId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="purposeDetails" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="legalDescription" Type="System.String" DbType="VarChar(MAX)" />
+    <Parameter Name="gotoLink" Type="System.String" DbType="VarChar(1000)" />
+    <Parameter Name="leadSourceId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="questionIds" Type="System.String" DbType="VarChar(100)" />
+    <Parameter Name="intUserId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetQuoteDetailsById" Method="GetQuoteDetailsById">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetQuoteDetailsByIdResult">
+      <Column Name="quoteId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="quoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectTypeId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="GDriveFileId" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="projectTypeName" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="clientId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientEmail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientPhone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientMunicipality" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientMunicipalityId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="clientStreetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientCity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientStateId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="clientState" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="clientCountryId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="clientCountry" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="accountManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManagerId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="accountManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="contactDetailsId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="contactDetailsName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ContactId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ContactName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactJobTitle" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="conatctEmail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactPhone" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactStreetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactCity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactMunicipality" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactMunicipalityId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="contactStateId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="contactState" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactCountryId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="contactCountry" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="contactPostalCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="quoteStatusName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="quoteStatusId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="potentialName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="potentialColor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectStreetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectCity" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectMunicipality" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectMunicipalityId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectStateId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectState" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectCountryId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="projectCountry" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectPostalCode" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="purposeOfSurveyId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="purposeOfSurvey" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="purposeDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="leadSourceId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="leadSource" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="purposeFileName" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="purposeFilePath" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="DaysOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="strReceivedDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strDueDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strQuotedDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="legacyNumber" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="legalDescription" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="gotoLink" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.upsertSitesQuotes" Method="upsertSitesQuotes">
+    <Parameter Name="int_site_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_site_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_street_address" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="vc_city" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_zip" Type="System.String" DbType="NVarChar(50)" />
+    <Parameter Name="int_country_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_state_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_muncipality_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_site_number" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="bt_isDefault" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.GetQuotesById" Method="GetQuotesById">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetQuotesByIdResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_potential_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_received_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="dt_quoted_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_decision_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_quoted_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="dec_awarded_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_project_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_account_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_prepare_days" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_survey_purpose_detail" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_name" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_path" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_purpose_of_survey_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_lead_source_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_RFQ_saved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_contact_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_contact_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_GDrive_file_id" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="dt_quote_preparation_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_stage_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_legacy_number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="vc_legal_description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_goto_Link" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="awardedAmount" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="quotedAmount" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="contactEmail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="DaysOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="strReceivedDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strDueDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strQuoteDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="strQuotePreparationDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="strFollowUpDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="activityId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="potentialName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="potentialColor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectType" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="accountManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="municipality" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="streetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cityName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stageName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="stageColour" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SOWCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="scheduledActions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="purposeOfSurveyId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="purposeOfSurvey" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="purposeDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.GetProjectsById" Method="GetProjectsById">
+    <Parameter Name="quoteId" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="clientId" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="GetProjectsByIdResult">
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_number" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="vc_quote_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_client_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_project_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_potential_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_received_date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="dt_quoted_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dt_decision_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="dec_quoted_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="dec_awarded_price" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_project_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_contact_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_account_manager_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_prepare_days" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_survey_purpose_detail" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_name" Type="System.String" DbType="VarChar(8000)" CanBeNull="true" />
+      <Column Name="vc_purpose_file_path" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="int_purpose_of_survey_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_lead_source_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_RFQ_saved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_contact_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_contact_type" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_GDrive_file_id" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="dt_quote_preparation_due_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_stage_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_project" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_legacy_number" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="vc_legal_description" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_goto_Link" Type="System.String" DbType="VarChar(1000)" CanBeNull="true" />
+      <Column Name="awardedAmount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="quotedAmount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="actualAmount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="plannedAmount" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="actualTimesheetCost" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+      <Column Name="actualExpenseCost" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="actualLogHoursCost" Type="System.Decimal" DbType="Decimal(38,4)" CanBeNull="true" />
+      <Column Name="actualExpenseLogCost" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+      <Column Name="contactEmail" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="strProjectAwaredDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="DaysOld" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="strReceivedDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strDueDate" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="strQuoteDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="strQuotePreparationDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="strFollowUpDate" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="activityId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="potentialName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="potentialColor" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="projectType" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="clientName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="projectManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="accountManager" Type="System.String" DbType="VarChar(201) NOT NULL" CanBeNull="false" />
+      <Column Name="municipality" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="streetAddress" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="cityName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stateName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="countryName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="stageName" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="stageColour" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="scheduledActions" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="timesheetCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="expenseCount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="purposeOfSurveyId" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="purposeOfSurvey" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="purposeDetails" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.upsertActionsInManage" Method="upsertActionsInManage">
+    <Parameter Name="int_ibw_manage_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_manage_task_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_job_code_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="vc_job_code_title" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="dec_job_code_rate" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dt_due_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_actual_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_actual_amount" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="isDeleted" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_isRemedial" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_team_member_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_user_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.insertActionInManageGlobally" Method="insertActionInManageGlobally">
+    <Parameter Name="int_manage_sow_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_manage_task_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_action_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_job_code_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_custom_action_name" Type="System.String" DbType="NVarChar(200)" />
+    <Parameter Name="vc_job_code_title" Type="System.String" DbType="NVarChar(500)" />
+    <Parameter Name="dec_job_code_rate" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_planned_amount" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dt_due_date" Type="System.DateTime" DbType="DateTime" />
+    <Parameter Name="int_due_date_lookup_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="dec_actual_hours" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="dec_actual_amount" Type="System.Decimal" DbType="Decimal(18,2)" />
+    <Parameter Name="vc_notes" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_file_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="bt_isRemedial" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_team_member_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getAllSitesOfQuote" Method="getAllSitesOfQuote">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getAllSitesOfQuoteResult">
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_address_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_isDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_site_number" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="vc_site_street_address" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_city" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_zip_or_postal" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="int_county_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_state_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_municipality_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="QuoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.getSavedBudgetInManage" Method="getSavedBudgetInManage">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getSavedBudgetInManageResult">
+      <Column Name="int_budget_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dec_quoted_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_expenses_amount" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="dec_budget_hrs" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="bt_isSubmitted" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_sow_number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="vc_sow_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_stage_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="vc_invoice_type_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_project_type_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_site_number" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="sowStatus" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="int_sow_status_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.upsertSOWQuotes" Method="upsertSOWQuotes">
+    <Parameter Name="int_sow_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_sow_name" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="int_sow_type" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_site_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_sow_number" Type="System.String" DbType="NVarChar(100)" />
+    <Parameter Name="int_created_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_modified_by" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="vc_sow_description" Type="System.String" DbType="NVarChar(MAX)" />
+    <Parameter Name="bt_isApproved" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="bt_isDefault" Type="System.Boolean" DbType="Bit" />
+    <Parameter Name="int_sow_invoice_type" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_sow_status" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="result" Type="System.Int64" DbType="BigInt" Direction="InOut" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.getAllSowOfQuoteandSite" Method="getAllSowOfQuoteandSite">
+    <Parameter Name="int_quote_id" Type="System.Int64" DbType="BigInt" />
+    <Parameter Name="int_site_id" Type="System.Int64" DbType="BigInt" />
+    <ElementType Name="getAllSowOfQuoteandSiteResult">
+      <Column Name="int_sow_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="int_sow_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_quote_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_site_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="bt_delete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="int_created_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_created_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="int_modified_by" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="dt_modified_on" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="bt_isApproved" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="vc_google_drive_folder_id" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="bt_isDefault" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="vc_sow_number" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="int_sow_status_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="int_sow_invoice_type_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="vc_sow_description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="vc_stage_name" Type="System.String" DbType="VarChar(200)" CanBeNull="true" />
+      <Column Name="vc_invoice_type_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_project_type_name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="QuoteNumber" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="vc_site_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
